@@ -2,6 +2,7 @@ package edu.csumb.moli9479.applicationpocketcs;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import com.facebook.FacebookSdk;
 
 public class LoginActivity extends AppCompatActivity {
 
