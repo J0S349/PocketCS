@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">ApplicationPocketCS</string>
     <string name="facebook_app_id">707235632774989</string>
-    <string name="cancel_login">Login canceled...</string>
+    <string name="cancel_login">Login Cancelled</string>
     <string name="error_login">Error logging in</string>
-
 </resources>
