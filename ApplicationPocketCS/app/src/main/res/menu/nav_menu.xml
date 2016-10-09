@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/Home_menu_item"
+    android:title="Home"/>
+
+    <item android:id="@+id/Profile_menu_item"
+        android:title="Profile"/>
+
+    <item android:id="@+id/Quizzes_menu_item"
+        android:title="Quizzes"/>
+
+    <item android:id="@+id/Community_menu_item"
+        android:title="Community"/>
+
+    <item android:id="@+id/Setting_menu_item"
+        android:title="Settings">
+
+    </item>
+
+
+</menu>
