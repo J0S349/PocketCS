@@ -10,4 +10,12 @@
     <string name="lastname">lastname</string>
     <string name="pocketcslogo">pocketCSLogo</string>
     <string name="userId">user id</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+
+    <string name="Community">Community</string>
+    <string name="Settings">Settings</string>
+    <string name="Quizzes">Quizzes</string>
+    <string name="Profile">Profile</string>
+    <string name="Home">Home</string>
 </resources>
