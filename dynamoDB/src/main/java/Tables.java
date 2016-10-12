@@ -1,16 +1,15 @@
 
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.SystemPropertiesCredentialsProvider;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.datamodeling.unmarshallers.IntegerSetUnmarshaller;
+import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.*;
-import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.Table;
-import com.amazonaws.services.dynamodbv2.document.TableCollection;
 import com.amazonaws.services.dynamodbv2.document.internal.IteratorSupport;
 import com.amazonaws.services.dynamodbv2.local.server.DynamoDBProxyServer;
 import com.amazonaws.services.dynamodbv2.model.*;
 import com.amazonaws.services.s3.model.Region;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -18,14 +17,18 @@ import java.util.Iterator;
  * Created by Peeps on 10/9/16.
  */
 
-public class CreateDBTables {
+public class Tables {
+
+    private int dataStructuresCounter = 1;
+    private int algorithmsCounter = 1;
+
     // This function will create all the tables
     public static void initialize(){
-        createAlgorithmsAndDataStructuresTable("Algorithms");
-        createAlgorithmsAndDataStructuresTable("Data Structures");
+        createAlgorithmsOrDataStructuresTable("Algorithms");
+        createAlgorithmsOrDataStructuresTable("Data Structures");
     }
 
-    private static void createAlgorithmsAndDataStructuresTable(String tableName){
+    private static void createAlgorithmsOrDataStructuresTable(String tableName){
         //checks to see whether the tables already exist or not
         if(tableAlreadyExist(tableName))
         {
@@ -101,7 +104,7 @@ public class CreateDBTables {
     }
 
     // This is used to create category tables
-    private static void createCategoryTables(String tableName){
+    private static void createCategoryTable(String tableName){
         ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
 
         attributeDefinitions.add(new AttributeDefinition()
@@ -176,7 +179,7 @@ public class CreateDBTables {
                         .withReadCapacityUnits(5L)
                         .withWriteCapacityUnits(6L));
 
-        // Now we create the reques to create the table.
+        // Now we create the request to create the table.
         try {
             DBConnector.getDynamoDB().createTable(request);
             System.out.println();
@@ -186,7 +189,7 @@ public class CreateDBTables {
         }
     }
 
-    // This function will check whether
+    // This function will check whether the database contains the table already or not
     private static boolean tableAlreadyExist(String tableName){
         TableCollection<ListTablesResult> tables = DBConnector.getDynamoDB().listTables();
         Iterator<Table> iterator = tables.iterator();
@@ -201,11 +204,16 @@ public class CreateDBTables {
         return false; // table doesn't exist
     }
 
+    // Adding information to either a DataStructures Table or Algorithms Table
+    private static boolean addDataStructureOrCategory(ArrayList<Object> params){
+        // make sure that it contains
+        return false;
+    }
+
     // Adding a row to any type of category table (dataStructuresCategory, algorithmsCategory, softwareDesignPatternsCategory)
-    private static boolean addCategoryToTable(String tableName, int primaryKey, String name, String description)
+    private static boolean addCategory(String tableName, int primaryKey, String name, String description)
     {
         Table table = DBConnector.getDynamoDB().getTable(tableName);
-
         // Try to add into the table
         try{
             Item sessionRow = new Item()
@@ -239,7 +247,4 @@ public class CreateDBTables {
             return false;
         }
     }
-
-
-
 }

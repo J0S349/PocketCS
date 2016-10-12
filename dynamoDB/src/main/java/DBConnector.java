@@ -11,6 +11,7 @@ import com.amazonaws.services.s3.model.Region;
  *  This is the class that will allow us to comunicate between the database and our application
  *
  */
+
 public class DBConnector {
 
     private static DynamoDB dynamoDB;
@@ -19,6 +20,7 @@ public class DBConnector {
     public static void initialize(){
         String access = System.getProperty("access");
         String secret = System.getProperty("secret");
+        
 
         // This will create a new instance of the object in case that it is not created yet
         if(access == null || secret == null || access.equals("") || secret.equals("")){
