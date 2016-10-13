@@ -1,6 +1,9 @@
 package edu.csumb.moli9479.applicationpocketcs;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +11,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView firstnameView,userId;
     private ProfilePictureView profilepic;
@@ -30,9 +35,12 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
+        navigationView.setNavigationItemSelectedListener(this);
+
         //Setting the fields with their respect values.
-        firstnameView = (TextView) findViewById(R.id.firstname);
-        userId = (TextView) findViewById(R.id.userId);
+       //firstnameView = (TextView) findViewById(R.id.firstname);
+        //userId = (TextView) findViewById(R.id.userId);
         profilepic = (ProfilePictureView) findViewById(R.id.image);
 
         //If user is not logged in, go to the login screen.
@@ -43,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
         //Extracting the information provided by the bundle.
         Bundle inBundle = getIntent().getExtras();
         if(inBundle != null){
-            String name = inBundle.get("name").toString();
-            firstnameView.setText(name);
+            //String name = inBundle.get("name").toString();
+            //firstnameView.setText(name);
             String id = inBundle.get("id").toString();
-            userId.setText(id);
-            profilepic.setProfileId(id);
+           //userId.setText(id);
+           profilepic.setProfileId(id);
         }
     }
 
@@ -80,4 +88,39 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.Home_menu_item:
+                Toast.makeText(MainActivity.this,"Clicked on home",Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.Profile_menu_item:
+                Toast.makeText(MainActivity.this, "Clicked on Profile", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.Quizzes_menu_item:
+                Toast.makeText(MainActivity.this, "Clicked on Quizzes", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.Community_menu_item:
+                Toast.makeText(MainActivity.this, "Clicked on Community", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.Setting_menu_item:
+                Toast.makeText(MainActivity.this, "Clicked on Settings", Toast.LENGTH_LONG).show();
+
+
+        }
+        DrawerLayout dl = (DrawerLayout) findViewById(R.id.drawerLayout);
+        if(dl.isDrawerOpen(GravityCompat.START)){
+            dl.closeDrawer(GravityCompat.START);
+        }
+
+        return false;
+    }
 }
