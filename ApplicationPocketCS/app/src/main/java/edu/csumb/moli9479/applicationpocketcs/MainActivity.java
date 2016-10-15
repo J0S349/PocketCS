@@ -113,8 +113,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.Setting_menu_item:
                 Toast.makeText(MainActivity.this, "Clicked on Settings", Toast.LENGTH_LONG).show();
-
-
+                Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                break;
         }
         DrawerLayout dl = (DrawerLayout) findViewById(R.id.drawerLayout);
         if(dl.isDrawerOpen(GravityCompat.START)){
