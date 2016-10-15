@@ -8,81 +8,105 @@
     tools:context="edu.csumb.moli9479.applicationpocketcs.MainActivity"
     android:id="@+id/drawerLayout">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        >
 
-        <TextView
-            android:text="@string/welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/WelcomeTitle"
-            android:layout_weight="0.00"
-            tools:ignore="InefficientWeight,ObsoleteLayoutParam" />
+        <ImageView
+            android:id="@+id/pocketcslogo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/transparentpocketcslogo"
+            android:contentDescription="@string/pocketcslogo"
+             />
 
-        <TextView
-            android:id="@+id/firstname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_s_first_name"
-
-            android:layout_marginTop="18dp"
-            android:layout_below="@+id/WelcomeTitle"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            tools:ignore="ObsoleteLayoutParam" />
+        <com.facebook.login.widget.ProfilePictureView
+             android:id="@+id/image"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             tools:ignore="ObsoleteLayoutParam,UnknownId"
+            android:layout_gravity="bottom"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="18dp">
+         </com.facebook.login.widget.ProfilePictureView>
 
         <Button
             android:id="@+id/logoutButton"
             android:onClick="logout"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Logout"
-            android:layout_below="@+id/WelcomeTitle"
+            android:layout_below="@+id/image"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"
-            tools:ignore="ObsoleteLayoutParam" />
+            android:layout_marginTop="19dp" />
 
-        <com.facebook.login.widget.ProfilePictureView
-            android:id="@+id/image"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="105dp"
-            android:layout_below="@+id/logoutButton"
-            android:layout_centerHorizontal="true"
-            tools:ignore="ObsoleteLayoutParam">
+            android:orientation="vertical"
+            android:weightSum="3"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="19dp">
 
-        </com.facebook.login.widget.ProfilePictureView>
+            <Button
+                android:id="@+id/AlgorithmsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:layout_marginBottom="15dp"
+                android:text="@string/Algorithms"
+                android:background="@drawable/algobuttonstyle"
+                android:textColor="#F0F0F0"
+                android:textAlignment="center"
+                android:layout_marginEnd="15dp"
+                tools:ignore="RtlHardcoded" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:id="@+id/DataStructuresButton"
+                android:theme="@style/AlgorithmsButton"
+                android:text="@string/DataStructures"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/dsbuttonstyle"
+                android:textAlignment="center"
+                android:layout_marginRight="15dp"
+                tools:ignore="RtlHardcoded" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/SoftwareDesignPatternButton"
+                android:text="@string/SoftwareDesignPatterns"
+                android:background="@drawable/softwaredesignstyle"
+                android:textColor="#F0F0F0"
+                android:textSize="13sp"
+                android:textAlignment="center"
+                android:layout_marginRight="15dp"
+                tools:ignore="RtlHardcoded" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/userId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/userId"
-            android:layout_below="@+id/logoutButton"
-            android:layout_alignRight="@+id/WelcomeTitle"
-            android:layout_alignEnd="@+id/WelcomeTitle"
-            tools:ignore="ObsoleteLayoutParam" />
 
-
-    </LinearLayout>
-
+    </RelativeLayout>
     <android.support.design.widget.NavigationView
-
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/navigationView"
         android:layout_width="match_parent"
         app:menu="@menu/nav_menu"
         app:headerLayout="@layout/nav_header"
         app:itemBackground="@drawable/pressed_gray"
         android:layout_gravity="start">
-
     </android.support.design.widget.NavigationView>
-
-
 </android.support.v4.widget.DrawerLayout>
 
 

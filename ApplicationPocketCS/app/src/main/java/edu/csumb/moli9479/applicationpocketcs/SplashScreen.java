@@ -1,11 +1,13 @@
 package edu.csumb.moli9479.applicationpocketcs;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends Activity {
 
     private static int SPLASH_TIME_OUT = 3000;
 

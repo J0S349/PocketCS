@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         if(profile != null){
             //Passing in the name,id and photo from the profile.
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("name",profile.getName());
+           // intent.putExtra("name",profile.getName());
             intent.putExtra("id",profile.getId());
             intent.putExtra("photo",profile.getProfilePictureUri(200,200));
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
