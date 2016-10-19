@@ -3,47 +3,40 @@ package edu.csumb.moli9479.applicationpocketcs;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
-
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.facebook.login.widget.ProfilePictureView;
-
-import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //Creating variable references to the XML button and CallbackManager.
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    private static String  firstname;
+    private String TAG;
 
-    //Beginning of onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        TAG = "Login.Activity";
 
+        //Callback manager manages callbacks into the FB SDK from an Activity's onActivityResult() Method.
         callbackManager = CallbackManager.Factory.create();
-
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions(Arrays.asList("email"));
-
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            //If login in successful,
             @Override
             public void onSuccess(LoginResult loginResult) {
-                goMainScreen();
-
+                Profile profile = Profile.getCurrentProfile();
+                goMainScreen(profile);
             }
-
             @Override
             public void onCancel() {
                 Toast.makeText(getApplicationContext(),R.string.cancel_login, Toast.LENGTH_LONG).show();
@@ -55,20 +48,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void goMainScreen() {
-        ProfilePictureView profilePictureView;
-        profilePictureView = (ProfilePictureView) findViewById(R.id.image);
-        //profilePictureView.setProfileId(userId);
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+    private void goMainScreen(Profile profile) {
+        if(profile != null){
+            //Passing in the name,id and photo from the profile.
+            Intent intent = new Intent(this, MainActivity.class);
+           // intent.putExtra("name",profile.getName());
+            intent.putExtra("id",profile.getId());
+            intent.putExtra("photo",profile.getProfilePictureUri(200,200));
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 
-
     @Override
+    //All Request Code, Result Code, and data are recieved by the activity
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
         callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 }
-

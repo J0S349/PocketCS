@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,6 +6,24 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+<!--
+    <style name="LogoutButton" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="colorButtonNormalHighlight">@color/indigo</item>
+        <item name="colorButtonNormal">@android:color/holo_blue_bright</item>
+    </style> -->
+
+    <style name="AlgorithmsButton" parent="Theme.AppCompat.Light">
+
+    </style>
+
+    <style name="SoftwareDesignPatternButton" parent="Theme.AppCompat">
+
+    </style>
+
+    <style name = "logoutButton2" parent="Theme.AppCompat.Light">
+
     </style>
 
 </resources>
