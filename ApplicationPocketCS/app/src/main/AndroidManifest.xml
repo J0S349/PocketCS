@@ -34,8 +34,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".AboutActivity"></activity>
+
+        <activity android:name=".SettingsActivity"
+            android:label="@string/Settings" />
+
+        <activity android:name=".AboutActivity"
+            android:label="@string/About">
+
+        </activity>
     </application>
 
 </manifest>
