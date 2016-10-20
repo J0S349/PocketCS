@@ -27,6 +27,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         TAG = "Login.Activity";
 
+        if(AccessToken.getCurrentAccessToken() != null){
+            goMainScreen(Profile.getCurrentProfile());
+        }
+
         //Callback manager manages callbacks into the FB SDK from an Activity's onActivityResult() Method.
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);

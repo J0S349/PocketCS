@@ -20,6 +20,8 @@ import java.security.NoSuchAlgorithmException;
 public class PocketCSApp extends Application {
     @Override
     public void onCreate(){
+
+        Log.i("PocketCSAPP", "Inside PocketCSAPP class");
         super.onCreate();
           try {
             PackageInfo info = getPackageManager().getPackageInfo(
