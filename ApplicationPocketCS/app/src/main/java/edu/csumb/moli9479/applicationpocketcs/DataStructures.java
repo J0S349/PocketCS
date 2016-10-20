@@ -1,0 +1,23 @@
+package edu.csumb.moli9479.applicationpocketcs;
+
+/**
+ * Created by stephennegron on 10/8/16.
+ */
+
+public class DataStructures extends CSTopic{
+    private String runtime;
+
+    public DataStructures() {
+        super();
+    }
+
+    public String getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(String runtime) {
+        if(!runtime.equals(null)) {
+            this.runtime = runtime;
+        }
+    }
+}
