@@ -28,7 +28,7 @@ public class Tables {
         createAlgorithmsOrDataStructuresTable("Data Structures");
     }
 
-    private static void createAlgorithmsOrDataStructuresTable(String tableName){
+    public static void createAlgorithmsOrDataStructuresTable(String tableName){
         //checks to see whether the tables already exist or not
         if(tableAlreadyExist(tableName))
         {
@@ -104,7 +104,7 @@ public class Tables {
     }
 
     // This is used to create category tables
-    private static void createCategoryTable(String tableName){
+    public static void createCategoryTable(String tableName){
         ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
 
         attributeDefinitions.add(new AttributeDefinition()
@@ -145,7 +145,7 @@ public class Tables {
     }
 
     // Create the user table
-    private static void createUserTable(){
+    public static void createUserTable(){
         ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
 
         attributeDefinitions.add(new AttributeDefinition()
@@ -190,7 +190,7 @@ public class Tables {
     }
 
     // This function will check whether the database contains the table already or not
-    private static boolean tableAlreadyExist(String tableName){
+    public static boolean tableAlreadyExist(String tableName){
         TableCollection<ListTablesResult> tables = DBConnector.getDynamoDB().listTables();
         Iterator<Table> iterator = tables.iterator();
 
@@ -205,13 +205,13 @@ public class Tables {
     }
 
     // Adding information to either a DataStructures Table or Algorithms Table
-    private static boolean addDataStructureOrCategory(ArrayList<Object> params){
+    public static boolean addDataStructureOrCategory(ArrayList<Object> params){
         // make sure that it contains
         return false;
     }
 
     // Adding a row to any type of category table (dataStructuresCategory, algorithmsCategory, softwareDesignPatternsCategory)
-    private static boolean addCategory(String tableName, int primaryKey, String name, String description)
+    public static boolean addCategory(String tableName, int primaryKey, String name, String description)
     {
         Table table = DBConnector.getDynamoDB().getTable(tableName);
         // Try to add into the table
@@ -229,7 +229,7 @@ public class Tables {
     }
 
     // Adding a user to the table
-    private static boolean addUser(int ID, String firstName, String lastName, String email, String facebookID)
+    public static boolean addUser(int ID, String firstName, String lastName, String email, String facebookID)
     {
         Table table = DBConnector.getDynamoDB().getTable("user");
         try{
@@ -245,6 +245,29 @@ public class Tables {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    // Empty the database
+    public static void emptyDB() {
+        TableCollection<ListTablesResult> tables = DBConnector.getDynamoDB().listTables();
+
+        // Database is already empty
+        if(tables == null)
+            return;
+        Iterator<Table> iterator = tables.iterator();
+
+        while (iterator.hasNext()) {
+            Table table = iterator.next();
+
+            table.delete();
+            try {
+                // Try deleting the table
+                table.waitForDelete();
+
+            } catch(Exception e){
+                System.out.println("Error deleting table" + table.getTableName());
+            }
         }
     }
 }
