@@ -20,7 +20,16 @@
     <item android:id="@+id/Setting_menu_item"
         android:title="@string/Settings"
         android:icon="@mipmap/ic_settings_black_24dp">
-
+        <menu>
+            <item android:id="@+id/About_menu_item"
+                android:title="@string/About"
+                android:icon="@mipmap/ic_group_black_24dp">
+            </item>
+            <item android:id="@+id/Logout_menu_item"
+                android:title="@string/Logout"
+                android:icon="@mipmap/ic_exit_to_app_black_24dp">
+            </item>
+        </menu>
     </item>
 
 

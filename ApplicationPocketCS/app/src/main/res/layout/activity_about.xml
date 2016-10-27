@@ -27,7 +27,9 @@
         android:text="@string/AboutMessage"
         android:layout_below="@+id/pocketcslogo"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:typeface="monospace"
+        />
 
 
 </RelativeLayout>
