@@ -67,6 +67,7 @@
                 android:textColor="#F0F0F0"
                 android:textAlignment="center"
                 android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
                 tools:ignore="RtlHardcoded" />
             <Button
                 android:layout_width="wrap_content"
