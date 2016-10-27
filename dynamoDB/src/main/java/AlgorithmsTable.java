@@ -6,11 +6,15 @@ import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.*;
 import com.amazonaws.services.dynamodbv2.document.internal.IteratorSupport;
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
+import com.amazonaws.services.dynamodbv2.document.utils.NameMap;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.local.server.DynamoDBProxyServer;
 import com.amazonaws.services.dynamodbv2.model.*;
 import com.amazonaws.services.s3.model.Region;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Peeps on 10/25/16.
@@ -29,7 +33,7 @@ public class AlgorithmsTable {
     private static final String HELPFUL_LINK_COLUMN = "helpfulLink";
 
     private Table table;
-    /*
+
     public static AlgorithmsTable createTable(String tableName, DBConnector connector){
 
         ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
@@ -41,43 +45,6 @@ public class AlgorithmsTable {
         attributeDefinitions.add(new AttributeDefinition()
                 .withAttributeName(KEY_COLUMN)
                 .withAttributeType(ScalarAttributeType.N));
-        // makes a name column of type String
-        attributeDefinitions.add(new AttributeDefinition()
-                .withAttributeName(NAME_COLUMN)
-                .withAttributeType(ScalarAttributeType.S));
-        // Makes a categoryID column of type int
-        attributeDefinitions.add(new AttributeDefinition()
-                .withAttributeName(CATEGORY_ID_COLUMN)
-                .withAttributeType(ScalarAttributeType.N));
-        // Makes dateCreated column of type String
-        attributeDefinitions.add(new AttributeDefinition()
-                .withAttributeName(DATE_CREATED_COLUMN)
-                .withAttributeType(ScalarAttributeType.S));
-        // Makes dateUpdated column of type String
-        attributeDefinitions.add(new AttributeDefinition()
-                .withAttributeName(DATE_UPDATED_COLUMN)
-                .withAttributeType(ScalarAttributeType.S));
-
-        // Makes a description column of type String
-        attributeDefinitions.add(new AttributeDefinition()
-                .withAttributeName(DESCRIPTION_COLUMN)
-                .withAttributeType(ScalarAttributeType.S));
-        // Makes a image column of type String
-        attributeDefinitions.add(new AttributeDefinition()
-                .withAttributeName(IMAGE_ID_COLUMN)
-                .withAttributeType(ScalarAttributeType.S));
-        // Makes a runtime column of type String
-        attributeDefinitions.add(new AttributeDefinition()
-                .withAttributeName(RUNTIME_COLUMN)
-                .withAttributeType(ScalarAttributeType.S));
-        // Makes a UserID column of type int
-        attributeDefinitions.add(new AttributeDefinition()
-                .withAttributeName(USER_ID_COLUMN)
-                .withAttributeType(ScalarAttributeType.N));
-        // Makes a helpfulLink column of type String
-        attributeDefinitions.add(new AttributeDefinition()
-                .withAttributeName(HELPFUL_LINK_COLUMN)
-                .withAttributeType(ScalarAttributeType.S));
 
         // Create the KeySchema for knowing what is primary key(s) of the table
          KeySchemaElement keySchema = new KeySchemaElement()
@@ -102,12 +69,12 @@ public class AlgorithmsTable {
                         .withReadCapacityUnits(5L)
                         .withWriteCapacityUnits(6L));
 
-        // Now we create the reques to create the table.
+        // Now we create the request to create the table.
         Table table;
         try {
             table = connector.getDynamoDB().createTable(request);
         } catch (Exception e){
-            System.out.println("Unable to create Table");
+
             e.printStackTrace();
             return null;
         }
@@ -123,7 +90,7 @@ public class AlgorithmsTable {
         return new AlgorithmsTable(table);
 
     }
-    */
+
     private AlgorithmsTable(Table table){
         this.table = table;
     }
@@ -149,24 +116,26 @@ public class AlgorithmsTable {
                 .withString(DATE_UPDATED_COLUMN, dateUpaded)
                 .withString(HELPFUL_LINK_COLUMN, helpfulLink);
         try{
-            Item item = table.getItem(KEY_COLUMN, 0);
-
-            //System.out.println("Table name: " + table.getItem(new PrimaryKey(KEY_COLUMN, 1)));
-            //table.putItem(sessionRow);
+            table.putItem(sessionRow);
 
         } catch (Exception e){
             System.out.println("Error adding row to table");
             e.printStackTrace();
-            //e.getMessage();
         }
     }
 
-    public String get(long id){
+    public void update(
+            long id, long userID, String algoName, int categoryID, String description, String runtime,
+            String imageID, String dateCreated, String dateUpdated, String helpfulLink
+    )
+    {
+       put(id, userID, algoName, categoryID, description, runtime, imageID, dateCreated, dateUpdated, helpfulLink);
+
+    }
+    public Item get(long id){
 
         Item item = table.getItem(KEY_COLUMN, id);
-        if(item != null)
-            return item.toString();
-        return "Failure";
+        return item;
     }
     public void delete(long id) {
         DeleteItemSpec deleteItemSpec = new DeleteItemSpec().withPrimaryKey(KEY_COLUMN, id);
