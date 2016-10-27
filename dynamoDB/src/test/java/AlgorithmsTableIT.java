@@ -22,16 +22,8 @@ import org.junit.Test;
 public class AlgorithmsTableIT {
 
     private static final String TABLE_NAME = "AlgorithmTableTest";
-    private static final String KEY_COLUMN = "algoID";
-    private static final String USER_ID_COLUMN = "userID";
     private static final String NAME_COLUMN = "algoName";
-    private static final String CATEGORY_ID_COLUMN = "categoryID";
-    private static final String DESCRIPTION_COLUMN = "description";
-    private static final String RUNTIME_COLUMN = "runtime";
-    private static final String IMAGE_ID_COLUMN = "imageID";
-    private static final String DATE_CREATED_COLUMN = "dateCreated";
-    private static final String DATE_UPDATED_COLUMN = "dateUpdated";
-    private static final String HELPFUL_LINK_COLUMN = "helpfulLink";
+
 
     private DBConnector connector;
     private AlgorithmsTable table;
@@ -43,9 +35,8 @@ public class AlgorithmsTableIT {
         AlgorithmsTable.openTable(TABLE_NAME, connector).deleteTable();
         table = AlgorithmsTable.createTable(TABLE_NAME, connector);
 
-        // Adding in a value every time
+        // Adding the same values everytime
         table.put(2,1,"Binary Search", 1 ,"It is a searching algorithm", "Best Case: log(n) Worst Case: O(n)", "blah", "today", "never","blah");
-
     }
 
     @After
@@ -60,7 +51,6 @@ public class AlgorithmsTableIT {
         String algoName = (String) result.get(NAME_COLUMN);
 
         assertThat(algoName, equalTo("Binary Search"));
-
     }
 
     @Test
@@ -75,7 +65,6 @@ public class AlgorithmsTableIT {
 
     @Test
     public void deleteItem(){
-
         table.delete(2);
 
         assertNull(table.get(2));

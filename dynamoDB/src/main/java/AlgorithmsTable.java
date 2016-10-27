@@ -20,7 +20,6 @@ import java.util.HashMap;
  * Created by Peeps on 10/25/16.
  */
 public class AlgorithmsTable {
-    //private static final String TABLE_NAME = "Algorithms";
     private static final String KEY_COLUMN = "algoID";
     private static final String USER_ID_COLUMN = "userID";
     private static final String NAME_COLUMN = "algoName";
@@ -38,10 +37,6 @@ public class AlgorithmsTable {
 
         ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
 
-//        attributeDefinitions.add(new AttributeDefinition()
-//                .withAttributeName(KEY_COLUMN)
-//                .withAttributeType(ScalarAttributeType.N)); // makes a ID column of type Number (int)
-//
         attributeDefinitions.add(new AttributeDefinition()
                 .withAttributeName(KEY_COLUMN)
                 .withAttributeType(ScalarAttributeType.N));
@@ -54,10 +49,6 @@ public class AlgorithmsTable {
         KeySchemaElement sortSchema = new KeySchemaElement().clone()
                 .withAttributeName(NAME_COLUMN)
                 .withKeyType(KeyType.RANGE);
-
-//        keySchema.add(new KeySchemaElement()
-//                .withAttributeName(KEY_COLUMN)
-//                .withKeyType(KeyType.HASH));    // Partition Key
 
         // Now we create a table request so that DynamoDB know that we want to create a table
         CreateTableRequest request = new CreateTableRequest()
@@ -129,9 +120,11 @@ public class AlgorithmsTable {
             String imageID, String dateCreated, String dateUpdated, String helpfulLink
     )
     {
+        // Taking advantage of tables ability to add / update an item that is entered into the table
        put(id, userID, algoName, categoryID, description, runtime, imageID, dateCreated, dateUpdated, helpfulLink);
 
     }
+
     public Item get(long id){
 
         Item item = table.getItem(KEY_COLUMN, id);
