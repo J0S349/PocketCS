@@ -15,6 +15,13 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
+        <activity android:name=".CategoryScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +41,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-
         <activity android:name=".SettingsActivity"
             android:label="@string/Settings" />
 

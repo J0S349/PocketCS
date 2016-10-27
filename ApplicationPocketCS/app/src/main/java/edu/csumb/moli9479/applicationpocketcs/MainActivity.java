@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +19,7 @@ import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnClickListener {
 
     private TextView firstnameView,userId;
     private ProfilePictureView profilepic;
@@ -38,6 +40,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
 
+        Button algorithms = (Button)findViewById(R.id.AlgorithmsButton);
+        algorithms.setOnClickListener(this);
+        Button dataStructures = (Button)findViewById(R.id.DataStructuresButton);
+        dataStructures.setOnClickListener(this);
+        Button softwareDesign = (Button)findViewById(R.id.SoftwareDesignPatternButton);
+        softwareDesign.setOnClickListener(this);
+
+
         //Setting the fields with their respect values.
        //firstnameView = (TextView) findViewById(R.id.firstname);
         //userId = (TextView) findViewById(R.id.userId);
@@ -56,6 +66,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String id = inBundle.get("id").toString();
            //userId.setText(id);
            profilepic.setProfileId(id);
+        }
+    }
+
+    public void onClick(View v) {
+        Bundle extraInfo = new Bundle();
+        if(v.getId() == R.id.AlgorithmsButton)
+        {
+            Intent i = new Intent(this, CategoryScreen.class);
+            extraInfo.putInt("categoryScreen", 0);
+            i.putExtras(extraInfo);
+            startActivity(i);
+        }
+        else if(v.getId() == R.id.DataStructuresButton)
+        {
+            Intent i = new Intent(this, CategoryScreen.class);
+            extraInfo.putInt("categoryScreen", 1);
+            i.putExtras(extraInfo);
+            startActivity(i); // Or startActivity(new Intent(this, About.class));
+        }
+        else if(v.getId() == R.id.SoftwareDesignPatternButton)
+        {
+            Intent i = new Intent(this, CategoryScreen.class);
+            extraInfo.putInt("categoryScreen", 2);
+            i.putExtras(extraInfo);
+            startActivity(i); // Or startActivity(new Intent(this, About.class));
         }
     }
 
