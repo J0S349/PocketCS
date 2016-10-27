@@ -20,7 +20,7 @@ public class DBConnector {
     private static DynamoDB dynamoDB;
     private static AmazonDynamoDB client;
 
-    private static final String CREDENTIAL_FILE_PATH = "~/.aws/credentials";
+    private static final String CREDENTIAL_FILE_PATH = "./access.ini";
     // Make sure that you install awscli by running this command "sudo pip install awscli"
 
     private static AWSCredentialsProvider getCredentialsProvider() {
