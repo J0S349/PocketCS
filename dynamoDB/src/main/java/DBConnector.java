@@ -1,9 +1,11 @@
 
 import com.amazonaws.auth.*;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.*;
 import com.amazonaws.services.dynamodbv2.local.server.DynamoDBProxyServer;
 import com.amazonaws.services.s3.model.Region;
+
 
 import java.io.File;
 
@@ -18,7 +20,8 @@ public class DBConnector {
     private static DynamoDB dynamoDB;
     private static AmazonDynamoDB client;
 
-    private static final String CREDENTIAL_FILE_PATH = "./access.ini";
+    private static final String CREDENTIAL_FILE_PATH = "~/.aws/credentials";
+    // Make sure that you install awscli by running this command "sudo pip install awscli"
 
     private static AWSCredentialsProvider getCredentialsProvider() {
         if (new File(CREDENTIAL_FILE_PATH).exists()) {
@@ -55,9 +58,11 @@ public class DBConnector {
 
     public DBConnector() {
         client = new AmazonDynamoDBClient(getCredentialsProvider());
-        client.setRegion(Region.US_West.toAWSRegion()); // US West
+        client.setRegion(com.amazonaws.regions.Region.getRegion(Regions.US_EAST_1));
+        //client.setRegion(Region.US_West.toAWSRegion()); // US West
         dynamoDB = new DynamoDB(client);
     }
+
     public static void close(){
         dynamoDB.shutdown();
         client.shutdown();
