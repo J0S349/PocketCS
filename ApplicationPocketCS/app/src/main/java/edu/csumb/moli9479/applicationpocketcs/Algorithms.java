@@ -20,4 +20,14 @@ public class Algorithms extends CSTopic {
             this.runtime = runtime;
         }
     }
+
+    public String toString() {
+        return ("Name: " + getName() +
+                "\nDescription: " + getDescription() +
+                "\nUser ID: " + getUserID() +
+                "\nRuntime: " + getRuntime() +
+                "\nImage: " + getImage() +
+                "\nCategory ID: " + getCategoryID() +
+                "\nHelpful Links: " + getHelpfulLink());
+    }
 }

@@ -88,4 +88,13 @@ public class CSTopic {
             this.dateUpdated = dateUpdated;
         }
     }
+
+    public String toString() {
+        return ("Name: " + getName() +
+                "\nDescription: " + getDescription() +
+                "\nUser ID: " + getUserID() +
+                "\nImage: " + getImage() +
+                "\nCategory ID: " + getCategoryID() +
+                "\nHelpful Links: " + getHelpfulLink());
+    }
 }

@@ -25,4 +25,5 @@
     <string name="aboutButton">About</string>
     <string name="About">About</string>
     <string name="AboutMessage">PocketCS was created by computer science for computer science students who wish to prepare for a technical interview or are simply looking to brush up on their CS fundamentals.</string>
+    <string name="title_activity_category_data_display">CategoryDataDisplay</string>
 </resources>
