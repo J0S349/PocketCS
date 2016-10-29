@@ -9,13 +9,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="edu.csumb.moli9479.applicationpocketcs.CategoryScreen">
+    tools:context="edu.csumb.moli9479.applicationpocketcs.CategoryScreen"
+    android:background="#C5CAE9">
 
     <ImageView
         android:id="@+id/pocketCSView"
         android:layout_width="wrap_content"
         android:layout_height="222dp"
         android:src="@drawable/transparentpocketcslogo"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:contentDescription="" />
 
 </LinearLayout>
