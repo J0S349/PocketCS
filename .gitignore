@@ -38,3 +38,10 @@ captures/
 
 # Keystore files
 *.jks
+
+# Maven build artifacts
+/target/**
+# IDEA stuff
+/.idea/**
+*.iml
+access.ini
