@@ -25,7 +25,7 @@ import java.util.Date;
  */
 public class AlgorithmsTableIT {
 
-    private static final String TABLE_NAME = "Algorithms";
+    private static final String TABLE_NAME = "AlgorithmsTableTest";
     private static final String NAME_COLUMN = "algoName";
 
 
@@ -39,32 +39,22 @@ public class AlgorithmsTableIT {
         AlgorithmsTable.openTable(TABLE_NAME, connector).deleteTable();
         table = AlgorithmsTable.createTable(TABLE_NAME, connector);
 
-        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        String timeStamp = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
 
-        // 1: Searching 2: Sorting 3:
-        // Adding the same values everytime
-        table.put(1,0,"Binary Search", 1 ,"It is used for searching for a value in a sorted list.", "Best Case: log(n) Worst Case: O(n)", "NULL", timeStamp, timeStamp,"NULL");
-        table.put(2,0,"Merge Sort", 2 ,"Is able to sort a list of number in increasing order", "Best Case: O( nlog(n)) Worst Case: O(nlog(n))", "NULL", timeStamp, timeStamp,"NULL");
-        table.put(3,0,"Quick Sort", 1 ,"Can sort a list of number in increaseing order by using a pivot", "Best Case: O (nlog(n)) Worst Case: O(n*n)", "NULL", timeStamp, timeStamp,"null");
-        table.put(4,0,"", 1 ,"It is a searching algorithm", "Best Case: log(n) Worst Case: O(n)", "blah", "today", "never","blah");
-        table.put(5,0,"Binary Search", 1 ,"It is a searching algorithm", "Best Case: log(n) Worst Case: O(n)", "blah", "today", "never","blah");
-        table.put(6,0,"Binary Search", 1 ,"It is a searching algorithm", "Best Case: log(n) Worst Case: O(n)", "blah", "today", "never","blah");
-        table.put(7,0,"Binary Search", 1 ,"It is a searching algorithm", "Best Case: log(n) Worst Case: O(n)", "blah", "today", "never","blah");
-        table.put(8,0,"Binary Search", 1 ,"It is a searching algorithm", "Best Case: log(n) Worst Case: O(n)", "blah", "today", "never","blah");
-        table.put(9,0,"Binary Search", 1 ,"It is a searching algorithm", "Best Case: log(n) Worst Case: O(n)", "blah", "today", "never","blah");
-        table.put(10,0,"Binary Search", 1 ,"It is a searching algorithm", "Best Case: log(n) Worst Case: O(n)", "blah", "today", "never","blah");
+        table.put(1,0,"Binary Search", 1 ,"It is used to find the specific index of a given value within a sorted list of values.",
+                "Best Case: log(n)?Worst Case: O(n)", "null", timeStamp, timeStamp,"null");
 
     }
 
     @After
     public void disconnect() {
-        //table.deleteTable(); //error on line: 33
+        table.deleteTable(); //error on line: 33
         connector.close();
     }
 
     @Test
     public void createAndVerifyTable(){
-        Item result = table.get(2);
+        Item result = table.get(1);
         String algoName = (String) result.get(NAME_COLUMN);
 
         assertThat(algoName, equalTo("Binary Search"));

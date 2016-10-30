@@ -92,7 +92,7 @@ public class AlgorithmsTable {
     }
 
     public void put(long id, long userID, String algoName, int categoryID, String description, String runtime,
-                    String imageID, String dateCreated, String dateUpaded, String helpfulLink)
+                    String imageID, String dateCreated, String dateUpdated, String helpfulLink)
     {
 
         Item sessionRow = new Item()
@@ -104,7 +104,7 @@ public class AlgorithmsTable {
                 .withString(RUNTIME_COLUMN, runtime)
                 .withString(IMAGE_ID_COLUMN, imageID)
                 .withString(DATE_CREATED_COLUMN, dateCreated)
-                .withString(DATE_UPDATED_COLUMN, dateUpaded)
+                .withString(DATE_UPDATED_COLUMN, dateUpdated)
                 .withString(HELPFUL_LINK_COLUMN, helpfulLink);
         try{
             table.putItem(sessionRow);
