@@ -1,5 +1,5 @@
 test:
-   override:
+  override:
        - mvn verify
    post:
        - mkdir -p $CIRCLE_TEST_REPORTS/reports/
@@ -8,3 +8,5 @@ test:
 notify:
    webhooks:
        - url: http://csumbse.net/harbormaster/hook/circleci/
+general: 
+  build-dir: dynamoDB
