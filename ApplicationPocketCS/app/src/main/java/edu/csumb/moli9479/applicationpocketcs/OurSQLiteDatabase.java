@@ -4,7 +4,10 @@ package edu.csumb.moli9479.applicationpocketcs;
  * Created by stephennegron on 10/6/16.
  */
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -93,8 +96,8 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
                 KEY_COSTS + " TEXT, " +
                 KEY_CATEGORY_ID + " INTEGER, " +
                 KEY_HELPFUL_LINK + " TEXT, " +
-                KEY_DATE_CREATED + " TEXT, " +
-                KEY_DATE_UPDATED + " TEXT )";
+                KEY_DATE_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                KEY_DATE_UPDATED + " DATETIME DEFAULT CURRENT_TIMESTAMP )";
 
         // execute an SQL statement to create the table
         db.execSQL(CREATE_SOFTWARE_DESIGN_TABLE);
@@ -116,8 +119,8 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
                 KEY_IMAGE + " TEXT" +
                 KEY_CATEGORY_ID + " INTEGER, " +
                 KEY_HELPFUL_LINK + " TEXT, " +
-                KEY_DATE_CREATED + " TEXT, " +
-                KEY_DATE_UPDATED + " TEXT )";
+                KEY_DATE_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                KEY_DATE_UPDATED + " DATETIME DEFAULT CURRENT_TIMESTAMP )";
 
         // execute an SQL statement to create the table
         db.execSQL(CREATE_DATA_STRUCTURES_TABLE);
@@ -136,11 +139,11 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
                 KEY_DESCRIPTION + " TEXT, " +
                 KEY_USER_ID + " INTEGER, " +
                 KEY_RUNTIME + " TEXT, " +
-                KEY_IMAGE + " TEXT" +
+                KEY_IMAGE + " TEXT," +
                 KEY_CATEGORY_ID + " INTEGER, " +
                 KEY_HELPFUL_LINK + " TEXT, " +
-                KEY_DATE_CREATED + " TEXT, " +
-                KEY_DATE_UPDATED + " TEXT )";
+                KEY_DATE_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                KEY_DATE_UPDATED + " DATETIME DEFAULT CURRENT_TIMESTAMP )";
 
         // execute an SQL statement to create the table
         db.execSQL(CREATE_ALGORITHMS_TABLE);
@@ -169,6 +172,13 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
 
         // create fresh database
         this.onCreate(db);
+    }
+
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
     //---------------------------------------------------------------------
 
@@ -285,8 +295,8 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
         values.put(KEY_COSTS, softwareDesign.getCosts());
         values.put(KEY_CATEGORY_ID, softwareDesign.getCategoryID());
         values.put(KEY_HELPFUL_LINK, softwareDesign.getHelpfulLink());
-        values.put(KEY_DATE_CREATED, softwareDesign.getDateCreated());
-        values.put(KEY_DATE_UPDATED, softwareDesign.getDateUpdated());
+        values.put(KEY_DATE_CREATED, getDateTime());
+        values.put(KEY_DATE_UPDATED, getDateTime());
 
         // 3. insert
         db.insert(TABLE_SOFTWARE_DESIGN, // table
@@ -353,7 +363,7 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
         values.put(KEY_CATEGORY_ID, softwareDesign.getCategoryID());
         values.put(KEY_HELPFUL_LINK, softwareDesign.getHelpfulLink());
         values.put(KEY_DATE_CREATED, softwareDesign.getDateCreated());
-        values.put(KEY_DATE_UPDATED, softwareDesign.getDateUpdated());
+        values.put(KEY_DATE_UPDATED, getDateTime());
 
 
         // 3. updating row
@@ -496,8 +506,8 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
         values.put(KEY_RUNTIME, dataStructure.getRuntime());
         values.put(KEY_CATEGORY_ID, dataStructure.getCategoryID());
         values.put(KEY_HELPFUL_LINK, dataStructure.getHelpfulLink());
-        values.put(KEY_DATE_CREATED, dataStructure.getDateCreated());
-        values.put(KEY_DATE_UPDATED, dataStructure.getDateUpdated());
+        values.put(KEY_DATE_CREATED, getDateTime());
+        values.put(KEY_DATE_UPDATED, getDateTime());
 
         // 3. insert
         db.insert(TABLE_DATA_STRUCTURES, // table
@@ -562,7 +572,7 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
         values.put(KEY_CATEGORY_ID, dataStructure.getCategoryID());
         values.put(KEY_HELPFUL_LINK, dataStructure.getHelpfulLink());
         values.put(KEY_DATE_CREATED, dataStructure.getDateCreated());
-        values.put(KEY_DATE_UPDATED, dataStructure.getDateUpdated());
+        values.put(KEY_DATE_UPDATED, getDateTime());
 
 
         // 3. updating row
@@ -705,11 +715,11 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
         values.put(KEY_RUNTIME, algorithm.getRuntime());
         values.put(KEY_CATEGORY_ID, algorithm.getCategoryID());
         values.put(KEY_HELPFUL_LINK, algorithm.getHelpfulLink());
-        values.put(KEY_DATE_CREATED, algorithm.getDateCreated());
-        values.put(KEY_DATE_UPDATED, algorithm.getDateUpdated());
+        values.put(KEY_DATE_CREATED, getDateTime());
+        values.put(KEY_DATE_UPDATED, getDateTime());
 
         // 3. insert
-        db.insert(TABLE_DATA_STRUCTURES, // table
+        db.insert(TABLE_ALGORITHMS, // table
                 null, //nullColumnHack
                 values); // key/value -> keys = column names/ values = column values
 
@@ -771,7 +781,7 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
         values.put(KEY_CATEGORY_ID, algorithm.getCategoryID());
         values.put(KEY_HELPFUL_LINK, algorithm.getHelpfulLink());
         values.put(KEY_DATE_CREATED, algorithm.getDateCreated());
-        values.put(KEY_DATE_UPDATED, algorithm.getDateUpdated());
+        values.put(KEY_DATE_UPDATED, getDateTime());
 
 
         // 3. updating row

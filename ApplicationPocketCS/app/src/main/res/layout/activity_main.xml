@@ -35,9 +35,13 @@
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/pocketcslogo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="42dp">
+            android:orientation="vertical"
+            android:weightSum="3"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="19dp">
+
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

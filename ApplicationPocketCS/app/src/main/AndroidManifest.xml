@@ -52,6 +52,10 @@
         <activity android:name=".LoginActivity" />
 
         <activity
+            android:name=".CategoryDataDisplay"
+            android:label="@string/title_activity_category_data_display"/>
+
+        <activity
             android:name=".AboutActivity"
             android:label="@string/About"
             android:parentActivityName=".MainActivity">

@@ -20,6 +20,10 @@ import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
+import static edu.csumb.moli9479.applicationpocketcs.R.attr.icon;
+import static edu.csumb.moli9479.applicationpocketcs.R.attr.preserveIconSpacing;
+
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnClickListener {
 
     private ProfilePictureView profilepic;
@@ -39,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         Button algorithms = (Button)findViewById(R.id.AlgorithmsButton);
         algorithms.setOnClickListener(this);
