@@ -43,3 +43,4 @@ test:
         - cp ./*/build/outputs/apk/*.apk $CIRCLE_ARTIFACTS/
         - cp ./*/build/test-results/freeDebug/*.xml $CIRCLE_TEST_REPORTS/
         - cd ./*/build/;bash <(curl -s https://codecov.io/bash)
+
