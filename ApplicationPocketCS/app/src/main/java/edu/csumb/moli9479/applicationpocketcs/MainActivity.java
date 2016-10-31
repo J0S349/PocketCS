@@ -14,24 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.AccessToken;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
-
-import static edu.csumb.moli9479.applicationpocketcs.R.attr.icon;
-import static edu.csumb.moli9479.applicationpocketcs.R.attr.preserveIconSpacing;
-
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnClickListener {
 
-
     private ProfilePictureView profilepic;
-
     ActionBarDrawerToggle toggle;
 
     @Override
@@ -57,26 +48,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Button softwareDesign = (Button)findViewById(R.id.SoftwareDesignPatternButton);
         softwareDesign.setOnClickListener(this);
 
-
-        //Setting the fields with their respect values.
-       //firstnameView = (TextView) findViewById(R.id.firstname);
-        //userId = (TextView) findViewById(R.id.userId);
-
         profilepic = (ProfilePictureView) findViewById(R.id.image);
 
         //If user is not logged in, go to the login screen.
         if(AccessToken.getCurrentAccessToken() == null){
             goLoginScreen();
         }
-
-        //Extracting the information provided by the bundle.
-       // Bundle inBundle = getIntent().getExtras();
-        /*if(inBundle != null){
-            String id = inBundle.get("id").toString();
-           //userId.setText(id);
-           profilepic.setProfileId(id);
-        }*/
-
         Profile profile = Profile.getCurrentProfile();
         profilepic.setProfileId(profile.getId());
     }
