@@ -1,11 +1,13 @@
 package edu.csumb.moli9479.applicationpocketcs;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,13 +18,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
+import static edu.csumb.moli9479.applicationpocketcs.R.attr.icon;
+import static edu.csumb.moli9479.applicationpocketcs.R.attr.preserveIconSpacing;
+
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnClickListener {
 
-    private TextView firstnameView,userId;
+
     private ProfilePictureView profilepic;
+
     ActionBarDrawerToggle toggle;
 
     @Override
@@ -51,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Setting the fields with their respect values.
        //firstnameView = (TextView) findViewById(R.id.firstname);
         //userId = (TextView) findViewById(R.id.userId);
+
         profilepic = (ProfilePictureView) findViewById(R.id.image);
 
         //If user is not logged in, go to the login screen.
@@ -59,14 +68,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         //Extracting the information provided by the bundle.
-        Bundle inBundle = getIntent().getExtras();
-        if(inBundle != null){
-            //String name = inBundle.get("name").toString();
-            //firstnameView.setText(name);
+       // Bundle inBundle = getIntent().getExtras();
+        /*if(inBundle != null){
             String id = inBundle.get("id").toString();
            //userId.setText(id);
            profilepic.setProfileId(id);
-        }
+        }*/
+
+        Profile profile = Profile.getCurrentProfile();
+        profilepic.setProfileId(profile.getId());
     }
 
     public void onClick(View v) {
@@ -105,8 +115,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /*************************************************************************************************************
     Method that will log the user out of the application.
-     **************************************************************************************************************/
-    public void logout(View view){
+     *************************************************************************************************************
+     * @param view*/
+    public void logout(DialogInterface.OnClickListener view){
         LoginManager.getInstance().logOut();
         goLoginScreen();
     }
@@ -123,9 +134,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -136,6 +144,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.Profile_menu_item:
                 Toast.makeText(MainActivity.this, "Clicked on Profile", Toast.LENGTH_LONG).show();
+                Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
                 break;
 
             case R.id.Quizzes_menu_item:
@@ -146,12 +156,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, "Clicked on Community", Toast.LENGTH_LONG).show();
                 break;
 
-            case R.id.Setting_menu_item:
-                Toast.makeText(MainActivity.this, "Clicked on Settings", Toast.LENGTH_LONG).show();
-                Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(settingsIntent);
+            case R.id.About_menu_item:
+                Toast.makeText(MainActivity.this, "Clicked on About", Toast.LENGTH_LONG).show();
+                Intent aboutIntent = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(aboutIntent);
+                break;
+
+            case R.id.Logout_menu_item:
+                Toast.makeText(MainActivity.this, "Clicked on Logout", Toast.LENGTH_LONG).show();
+                //Alert Dialog to ask user if they are sure they want to logout.
+                new AlertDialog.Builder(this)
+                        .setTitle("Logout")
+                        .setMessage("Are you sure you want to logout?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                logout(this);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setIcon(R.drawable.ic_priority_high_black_24dp)
+                        .show();
                 break;
         }
+        //Code below checks if the drawer is open,
+            //if it is open and something is clicked, it will close.
         DrawerLayout dl = (DrawerLayout) findViewById(R.id.drawerLayout);
         if(dl.isDrawerOpen(GravityCompat.START)){
             dl.closeDrawer(GravityCompat.START);

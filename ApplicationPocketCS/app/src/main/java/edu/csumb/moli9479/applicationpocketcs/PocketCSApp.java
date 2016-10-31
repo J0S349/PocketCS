@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,11 +22,13 @@ public class CategoryScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_screen);
+
         //Toast.makeText(CategoryScreen.this, "Screen accessed", Toast.LENGTH_LONG).show();
         System.out.println("Screen accessed");
 
         LinearLayout rootLayout = (LinearLayout)findViewById(R.id.activity_category_screen);
         //ScrollView scrollView = (ScrollView)findViewById(R.id.scrollView);
+
         switch (getIntent().getExtras().getInt("categoryScreen")) {
             case 0:
                 //Toast.makeText(CategoryScreen.this, "Algorithms Screen should show", Toast.LENGTH_LONG).show();
@@ -79,6 +83,7 @@ public class CategoryScreen extends AppCompatActivity {
 
                         }
                     });
+
                     rootLayout.addView(newSpinner);
                     System.out.println("Working: " + i);
                 }
@@ -138,6 +143,8 @@ public class CategoryScreen extends AppCompatActivity {
 
                         }
                     });
+                    //newSpinner.setId(i);
+                    newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
                     rootLayout.addView(newSpinner);
                 }
                 setContentView(rootLayout);
@@ -195,6 +202,8 @@ public class CategoryScreen extends AppCompatActivity {
 
                         }
                     });
+                    //newSpinner.setId(i);
+                    newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
                     rootLayout.addView(newSpinner);
                 }
                 setContentView(rootLayout);
@@ -206,6 +215,4 @@ public class CategoryScreen extends AppCompatActivity {
         }
         System.out.println("Hello!");
     }
-
-
 }

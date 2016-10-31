@@ -1,5 +1,6 @@
 package edu.csumb.moli9479.applicationpocketcs;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -79,5 +80,9 @@ public class CategoryDataDisplay extends AppCompatActivity {
             }
         });*/
     }
+
+    /*public static Context getContext() {
+        return this;
+    }*/
 
 }
