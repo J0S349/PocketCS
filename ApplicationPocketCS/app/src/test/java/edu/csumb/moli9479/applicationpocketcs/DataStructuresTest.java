@@ -23,56 +23,56 @@ public class DataStructuresTest {
 
     @Test
     public void testName() throws Exception {
-        Algorithms a = new Algorithms();
+        DataStructures a = new DataStructures();
         a.setName("Quick Sort");
         assertEquals(a.getName(), "Quick Sort");
     }
 
     @Test
     public void testDescription() throws Exception {
-        Algorithms a = new Algorithms();
+        DataStructures a = new DataStructures();
         a.setDescription("Quickly sorts an array");
         assertEquals(a.getDescription(), "Quickly sorts an array");
     }
 
     @Test
     public void testUserID() throws Exception {
-        Algorithms a = new Algorithms();
+        DataStructures a = new DataStructures();
         a.setUserID(-1);
         assertNotEquals(a.getUserID(), -1);
     }
 
     @Test
     public void testImage() throws Exception {
-        Algorithms a = new Algorithms();
+        DataStructures a = new DataStructures();
         a.setImage("");
         assertEquals(a.getImage(), "");
     }
 
     @Test
     public void testCategoryID() throws Exception {
-        Algorithms a = new Algorithms();
+        DataStructures a = new DataStructures();
         a.setCategoryID(1);
         assertEquals(a.getCategoryID(), 1);
     }
 
     @Test
     public void testHelpfulLink() throws Exception {
-        Algorithms a = new Algorithms();
+        DataStructures a = new DataStructures();
         a.setHelpfulLink("google.com");
         assertEquals(a.getHelpfulLink(), "google.com");
     }
 
     @Test
     public void testDateCreated() throws Exception {
-        Algorithms a = new Algorithms();
+        DataStructures a = new DataStructures();
         a.setDateCreated("");
         assertEquals(a.getDateCreated(), "");
     }
 
     @Test
     public void testDateUpdated() throws Exception {
-        Algorithms a = new Algorithms();
+        DataStructures a = new DataStructures();
         a.setDateUpdated("");
         assertEquals(a.getDateUpdated(), "");
     }
