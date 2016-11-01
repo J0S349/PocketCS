@@ -1,18 +1,3 @@
-dependencies:
-  pre:
-    # Android SDK Platform 24
-    - if [ ! -d "/usr/local/android-sdk-linux/platforms/android-24" ]; then echo y | android update sdk --no-ui --all --filter "android-24"; fi
-    # Android SDK Build-tools, revision 24.0.1
-    - if [ ! -d "/usr/local/android-sdk-linux/build-tools/24.0.1" ]; then echo y | android update sdk --no-ui --all --filter "build-tools-24.0.1"; fi
-    # Android Support Repository, revision 35 / Local Maven repository for Support Libraries
-    - if [ ! -d "/usr/local/android-sdk-linux/extras/android/m2repository/com/android/support/design/24.1.0" ]; then echo y | android update sdk --no-ui 
---all --filter "extra-android-m2repository"; fi
-    
-  cache_directories:
-    - /usr/local/android-sdk-linux/platforms/android-24
-    - /usr/local/android-sdk-linux/build-tools/24.0.1
-    - /usr/local/android-sdk-linux/extras/android/m2repository
-
 test:
   override:
     # start the emulator
@@ -22,8 +7,8 @@ test:
     # wait for it to have booted
     - circle-android wait-for-boot
     # run tests against the emulator.
-    - ./gradlew connectedAndroidTest
+    - ./gradlew testDebug
     # copy the build outputs to artifacts
-    - cp -r my-project/build/outputs $CIRCLE_ARTIFACTS
+    #- cp -r PocketCS/build/outputs $CIRCLE_ARTIFACTS
     # copy the test results to the test results directory.
-    - cp -r my-project/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+    #- cp -r PocketCS/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
