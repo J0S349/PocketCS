@@ -1,14 +1,39 @@
+machine:
+java:
+version: oraclejdk8
+environment:
+ANDROID_HOME: /usr/local/android-sdk-linux
+
+dependencies:
+pre:
+- echo y | android update sdk --no-ui --all --filter "tools"
+- echo y | android update sdk --no-ui --all --filter "platform-tools"
+- echo y | android update sdk --no-ui --all --filter "build-tools"
+- echo y | android update sdk --no-ui --all --filter "android-24"
+- echo y | android update sdk --no-ui --all --filter build-tools-24.3.4
+- echo y | android update sdk --no-ui --all --filter "extra-google-m2repository"
+- echo y | android update sdk --no-ui --all --filter "extra-google-google_play_services"
+- echo y | android update sdk --no-ui --all --filter "extra-android-support"
+- echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"
+
+checkout:
+post:
+- git submodule init
+- git submodule update
+
 test:
-  override:
-    # start the emulator
-    - emulator -avd circleci-android22 -no-audio -no-window:
-        background: true
-        parallel: true
-    # wait for it to have booted
-    - circle-android wait-for-boot
-    # run tests against the emulator.
-    - ./gradlew testDebug
-    # copy the build outputs to artifacts
-    #- cp -r PocketCS/build/outputs $CIRCLE_ARTIFACTS
-    # copy the test results to the test results directory.
-    #- cp -r PocketCS/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+override:
+#- (./gradlew assemble -PdisablePreDex):
+#timeout: 360
+#- cp -r ${HOME}/${CIRCLE_PROJECT_REPONAME}/app/build/outputs/apk/ $CIRCLE_ARTIFACTS
+- emulator -avd circleci-android22 -no-audio -no-window:
+background: true
+parallel: true
+# wait for it to have booted
+- circle-android wait-for-boot
+# run tests against the emulator.
+- ./gradlew testDebug
+# copy the build outputs to artifacts
+#- cp -r PocketCS/build/outputs $CIRCLE_ARTIFACTS
+# copy the test results to the test results directory.
+#- cp -r PocketCS/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
