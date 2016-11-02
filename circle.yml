@@ -34,6 +34,6 @@ test:
         #- ./gradlew testDebug
         - ./gradlew connectedAndroidTest
         # copy the build outputs to artifacts
-        #- cp -r PocketCS/build/outputs $CIRCLE_ARTIFACTS
+        - cp -r PocketCS/build/outputs $CIRCLE_ARTIFACTS
         # copy the test results to the test results directory.
-        #- cp -r PocketCS/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+        - cp -r PocketCS/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
