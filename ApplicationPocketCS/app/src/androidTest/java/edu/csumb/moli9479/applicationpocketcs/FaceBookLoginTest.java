@@ -31,4 +31,10 @@ public class FaceBookLoginTest {
         onView(withId(R.id.nameTextView))
                 .check(matches(withText("Joseph Molina")));
     }
+
+    @Test
+    public void gotUserId() throws Exception{
+        onView(withId(R.id.idTextView))
+                .check(matches(withText("1219102721489385")));
+    }
 }

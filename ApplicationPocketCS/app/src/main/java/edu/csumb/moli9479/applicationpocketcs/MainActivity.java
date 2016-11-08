@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static User currentUser;
     private String TAG;
     private TextView nameView;
+    private TextView idView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         nameView = (TextView) findViewById(R.id.nameTextView);
         nameView.setText(profile.getName());
+
+        idView = (TextView) findViewById(R.id.idTextView);
+        idView.setText(profile.getId());
+
 
         //If user is not logged in, go to the login screen.
        // if(AccessToken.getCurrentAccessToken() == null){
