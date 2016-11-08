@@ -99,6 +99,15 @@
             android:layout_marginTop="16dp"
             />
 
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/pocketcslogo"
+            android:layout_alignRight="@+id/nameTextView"
+            android:layout_alignEnd="@+id/nameTextView"
+            android:id="@+id/idTextView" />
+
     </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:layout_height="match_parent"
