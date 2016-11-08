@@ -39,7 +39,7 @@ public class PocketCSApp extends Application {
 
         }
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
+        //FacebookSdk.sdkInitialize(getApplicationContext());
+       // AppEventsLogger.activateApp(this);
     }
 }

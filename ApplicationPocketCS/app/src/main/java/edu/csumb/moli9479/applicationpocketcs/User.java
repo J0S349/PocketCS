@@ -10,6 +10,15 @@ public class User {
     private String lastName;
     private String email;
     private String facebookID;
+    private String fullname;
+
+    User(){
+
+    }
+    User(String facebookID, String fullname){
+        this.facebookID = facebookID;
+        this.fullname = fullname;
+    }
 
     public int getID() {
         return ID;
