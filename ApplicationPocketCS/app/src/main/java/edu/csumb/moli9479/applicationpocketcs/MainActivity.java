@@ -10,12 +10,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.facebook.AccessToken;
+import com.facebook.FacebookRequestError;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
@@ -27,20 +33,25 @@ import static edu.csumb.moli9479.applicationpocketcs.R.attr.preserveIconSpacing;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnClickListener {
 
     private ProfilePictureView profilepic;
-    ActionBarDrawerToggle toggle;
+    private ActionBarDrawerToggle toggle;
+    private DrawerLayout drawerLayout;
+    public static User currentUser;
+    private String TAG;
+    private TextView nameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TAG = "MainActivity";
 
         //Creating the Navigation Drawer.
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toggle = new ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -52,13 +63,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         softwareDesign.setOnClickListener(this);
 
         profilepic = (ProfilePictureView) findViewById(R.id.image);
-
-        //If user is not logged in, go to the login screen.
-        if(AccessToken.getCurrentAccessToken() == null){
-            goLoginScreen();
-        }
         Profile profile = Profile.getCurrentProfile();
         profilepic.setProfileId(profile.getId());
+
+        nameView = (TextView) findViewById(R.id.nameTextView);
+        nameView.setText(profile.getName());
+
+        //If user is not logged in, go to the login screen.
+       // if(AccessToken.getCurrentAccessToken() == null){
+        //    goLoginScreen();
+        //}
     }
 
     public void onClick(View v) {
@@ -100,6 +114,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      *************************************************************************************************************
      * @param view*/
     public void logout(DialogInterface.OnClickListener view){
+
+        GraphRequest delPermRequest = new GraphRequest(AccessToken.getCurrentAccessToken(), "/{user-id}/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
+            @Override
+            public void onCompleted(GraphResponse graphResponse) {
+                if(graphResponse!=null){
+                    FacebookRequestError error =graphResponse.getError();
+                    if(error!=null){
+                        Log.e(TAG, error.toString());
+                    }else {
+                        finish();
+                    }
+                }
+            }
+        });
+        Log.d(TAG,"Executing revoke permissions with graph path" + delPermRequest.getGraphPath());
+        delPermRequest.executeAsync();
         LoginManager.getInstance().logOut();
         goLoginScreen();
     }
@@ -175,4 +205,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return false;
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        Profile profile = Profile.getCurrentProfile();
+        if(profile == null){
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+        }
+    }
+
 }
