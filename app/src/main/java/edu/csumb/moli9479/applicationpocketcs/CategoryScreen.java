@@ -26,15 +26,13 @@ public class CategoryScreen extends AppCompatActivity {
         //Toast.makeText(CategoryScreen.this, "Screen accessed", Toast.LENGTH_LONG).show();
         System.out.println("Screen accessed");
 
-        LinearLayout spinnerLayout = (LinearLayout)findViewById(R.id.activity_category_screen);
-        //ScrollView scrollView = (ScrollView)findViewById(R.id.scrollView);
+        LinearLayout spinnerLayout = (LinearLayout)findViewById(R.id.spinnerLayout);
 
         switch (getIntent().getExtras().getInt("categoryScreen")) {
             case 0:
                 //Toast.makeText(CategoryScreen.this, "Algorithms Screen should show", Toast.LENGTH_LONG).show();
                 System.out.println("Algorithms Screen should show");
                 String [] algorithmCategories = {"Sorting", "Searching", "String Matching", "Graph Problems"};
-                //ImageView pocketCSView = (ImageView)findViewById(R.id.pocketCSView);
                 for(int i = 0; i < algorithmCategories.length; i++) {
                     System.out.println("Loop: " + i);
                     //String [] defaultSpinnerValue = {algorithmCategories[i]};
@@ -60,7 +58,6 @@ public class CategoryScreen extends AppCompatActivity {
                     System.out.println("Fus: " + i);
                     Spinner newSpinner = new Spinner(this);
                     System.out.println("Roh: " + i);
-                    //newSpinner.setId(i);
                     newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
                     System.out.println("Dah: " + i);
                     newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -88,14 +85,12 @@ public class CategoryScreen extends AppCompatActivity {
                     //scrollView.addView(newSpinner);
                     System.out.println("Working: " + i);
                 }
-                setContentView(spinnerLayout);
                 System.out.println("Done");
                 break;
             case 1:
                 //Toast.makeText(CategoryScreen.this, "Data Structures Screen should show", Toast.LENGTH_LONG).show();
                 System.out.println("Data Structures Screen should show");
                 String [] dataStructuresCategories = {"LinkedLists", "Trees", "Sets", "Hashing", "Arrays"};
-                //ImageView pocketCSView = (ImageView)findViewById(R.id.pocketCSView);
                 for(int i = 0; i < dataStructuresCategories.length; i++) {
                     System.out.println("Loop: " + i);
                     //String [] defaultSpinnerValue = {dataStructuresCategories[i]};
@@ -122,7 +117,6 @@ public class CategoryScreen extends AppCompatActivity {
                             break;
                     }
                     Spinner newSpinner = new Spinner(this);
-                    //newSpinner.setId(i);
                     newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
                     newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -144,19 +138,14 @@ public class CategoryScreen extends AppCompatActivity {
 
                         }
                     });
-                    //newSpinner.setId(i);
                     newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
                     spinnerLayout.addView(newSpinner);
-                    //scrollView.addView(newSpinner);
                 }
-                setContentView(spinnerLayout);
-                //setContentView(scrollView);
                 break;
             case 2:
                 //Toast.makeText(CategoryScreen.this, "Software Design Patterns Screen should show", Toast.LENGTH_LONG).show();
                 System.out.println("Software Design Patterns Screen should show");
                 String [] softwareDesignPatternsCategories = {"Algorithm Strategy Patterns", "Computational Design Patterns", "Execution Patterns", "Implementation Strategy Patterns", "Structural Design Patterns"};
-                //ImageView pocketCSView = (ImageView)findViewById(R.id.pocketCSView);
                 for(int i = 0; i < softwareDesignPatternsCategories.length; i++) {
                     System.out.println("Loop: " + i);
                     //String [] defaultSpinnerValue = {softwareDesignPatternsCategories[i]};
@@ -183,7 +172,6 @@ public class CategoryScreen extends AppCompatActivity {
                             break;
                     }
                     Spinner newSpinner = new Spinner(this);
-                    //newSpinner.setId(i);
                     newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
                     newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -205,13 +193,9 @@ public class CategoryScreen extends AppCompatActivity {
 
                         }
                     });
-                    //newSpinner.setId(i);
                     newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
                     spinnerLayout.addView(newSpinner);
-                    //scrollView.addView(newSpinner);
                 }
-                setContentView(spinnerLayout);
-                //setContentView(scrollView);
                 break;
             default:
                 //Toast.makeText(CategoryScreen.this, "Error Populating Screen", Toast.LENGTH_LONG).show();
