@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">-->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/activity_category_screen"
         android:layout_width="match_parent"
@@ -16,16 +11,11 @@
         android:orientation="vertical"
         tools:context="edu.csumb.moli9479.applicationpocketcs.CategoryScreen">
 
-    <!--<ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-
         <LinearLayout
-            android:id="@+id/spinnerLayout"
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">-->
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/pocketCSView"
@@ -34,7 +24,34 @@
                 android:src="@drawable/transparentpocketcslogo"
                 android:layout_gravity="center"/>
 
-        <!--</LinearLayout>
-    </ScrollView>-->
+            <LinearLayout
+                android:id="@+id/spinnerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-</LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/addCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layoutDirection="inherit"
+                    android:background="@android:drawable/ic_input_add" />
+                <Button
+                    android:id="@+id/editCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="inherit"
+                    android:background="@mipmap/ic_edit_black_24dp"
+                    android:elevation="0dp"
+                    android:contentDescription="Edit category"
+                    android:backgroundTint="@android:color/holo_green_light" />
+            </LinearLayout>
+
+        </LinearLayout>
+</ScrollView>

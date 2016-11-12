@@ -26,8 +26,12 @@ public class CategoryScreen extends AppCompatActivity {
         //Toast.makeText(CategoryScreen.this, "Screen accessed", Toast.LENGTH_LONG).show();
         System.out.println("Screen accessed");
 
-        LinearLayout spinnerLayout = (LinearLayout)findViewById(R.id.activity_category_screen);
+        ScrollView scrollView = (ScrollView)findViewById(R.id.activity_category_screen);
+        //LinearLayout outerLayout = (LinearLayout)findViewById(R.id.activity_category_screen);
+        LinearLayout mainLayout = (LinearLayout)findViewById(R.id.mainLayout);
         //ScrollView scrollView = (ScrollView)findViewById(R.id.scrollView);
+        //ScrollView scrollView = new ScrollView(this);
+        LinearLayout spinnerLayout = (LinearLayout)findViewById(R.id.spinnerLayout);
 
         switch (getIntent().getExtras().getInt("categoryScreen")) {
             case 0:
@@ -60,7 +64,7 @@ public class CategoryScreen extends AppCompatActivity {
                     System.out.println("Fus: " + i);
                     Spinner newSpinner = new Spinner(this);
                     System.out.println("Roh: " + i);
-                    //newSpinner.setId(i);
+                    //newSpinner.setId(0);
                     newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
                     System.out.println("Dah: " + i);
                     newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -88,7 +92,8 @@ public class CategoryScreen extends AppCompatActivity {
                     //scrollView.addView(newSpinner);
                     System.out.println("Working: " + i);
                 }
-                setContentView(spinnerLayout);
+                //setContentView(spinnerLayout);
+                //setContentView(scrollView);
                 System.out.println("Done");
                 break;
             case 1:
@@ -122,7 +127,7 @@ public class CategoryScreen extends AppCompatActivity {
                             break;
                     }
                     Spinner newSpinner = new Spinner(this);
-                    //newSpinner.setId(i);
+                    //newSpinner.setId(1);
                     newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
                     newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -149,7 +154,7 @@ public class CategoryScreen extends AppCompatActivity {
                     spinnerLayout.addView(newSpinner);
                     //scrollView.addView(newSpinner);
                 }
-                setContentView(spinnerLayout);
+                //setContentView(spinnerLayout);
                 //setContentView(scrollView);
                 break;
             case 2:
@@ -183,7 +188,7 @@ public class CategoryScreen extends AppCompatActivity {
                             break;
                     }
                     Spinner newSpinner = new Spinner(this);
-                    //newSpinner.setId(i);
+                    //newSpinner.setId(2);
                     newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
                     newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -210,7 +215,7 @@ public class CategoryScreen extends AppCompatActivity {
                     spinnerLayout.addView(newSpinner);
                     //scrollView.addView(newSpinner);
                 }
-                setContentView(spinnerLayout);
+                //setContentView(spinnerLayout);
                 //setContentView(scrollView);
                 break;
             default:
@@ -218,6 +223,15 @@ public class CategoryScreen extends AppCompatActivity {
                 System.out.println("Error Populating screen");
                 break;
         }
+        //scrollView.removeView(outerLayout);
+        //scrollView.addView(spinnerLayout);
+        //outerLayout.removeView(scrollView);
+        //scrollView.removeView(mainLayout);
+        //mainLayout.addView(spinnerLayout);
+        //setContentView(scrollView);
+        //scrollView.addView(mainLayout);
+        //outerLayout.addView(scrollView);
+        //setContentView(outerLayout);
         System.out.println("Hello!");
     }
 }
