@@ -13,66 +13,73 @@ import static org.junit.Assert.assertNotEquals;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(MockitoJUnitRunner.class)
-public class DataStructuresTest {
+public class SoftwareDesignTest {
     @Test
-    public void testRunTime() throws Exception {
-        DataStructures a = new DataStructures();
-        a.setRuntime("O(n*log(n))");
-        assertEquals(a.getRuntime(), "O(n*log(n))");
+    public void testCosts() throws Exception {
+        SoftwareDesign a = new SoftwareDesign();
+        a.setCosts("");
+        assertEquals(a.getCosts(), "");
+    }
+
+    @Test
+    public void testBenefits() throws Exception {
+        SoftwareDesign a = new SoftwareDesign();
+        a.setBenefits("");
+        assertEquals(a.getBenefits(), "");
     }
 
     @Test
     public void testName() throws Exception {
-        DataStructures a = new DataStructures();
+        SoftwareDesign a = new SoftwareDesign();
         a.setName("Quick Sort");
         assertEquals(a.getName(), "Quick Sort");
     }
 
     @Test
     public void testDescription() throws Exception {
-        DataStructures a = new DataStructures();
+        SoftwareDesign a = new SoftwareDesign();
         a.setDescription("Quickly sorts an array");
         assertEquals(a.getDescription(), "Quickly sorts an array");
     }
 
     @Test
     public void testUserID() throws Exception {
-        DataStructures a = new DataStructures();
+        SoftwareDesign a = new SoftwareDesign();
         a.setUserID(-1);
         assertNotEquals(a.getUserID(), -1);
     }
 
     @Test
     public void testImage() throws Exception {
-        DataStructures a = new DataStructures();
+        SoftwareDesign a = new SoftwareDesign();
         a.setImage("");
         assertEquals(a.getImage(), "");
     }
 
     @Test
     public void testCategoryID() throws Exception {
-        DataStructures a = new DataStructures();
+        SoftwareDesign a = new SoftwareDesign();
         a.setCategoryID(1);
         assertEquals(a.getCategoryID(), 1);
     }
 
     @Test
     public void testHelpfulLink() throws Exception {
-        DataStructures a = new DataStructures();
+        SoftwareDesign a = new SoftwareDesign();
         a.setHelpfulLink("google.com");
         assertEquals(a.getHelpfulLink(), "google.com");
     }
 
     @Test
     public void testDateCreated() throws Exception {
-        DataStructures a = new DataStructures();
+        SoftwareDesign a = new SoftwareDesign();
         a.setDateCreated("");
         assertEquals(a.getDateCreated(), "");
     }
 
     @Test
     public void testDateUpdated() throws Exception {
-        DataStructures a = new DataStructures();
+        SoftwareDesign a = new SoftwareDesign();
         a.setDateUpdated("");
         assertEquals(a.getDateUpdated(), "");
     }

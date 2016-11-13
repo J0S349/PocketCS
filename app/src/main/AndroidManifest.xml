@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.csumb.moli9479.applicationpocketcs">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".PocketCSApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity android:name=".CategoryScreen"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"
+                />
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <meta-data
+                    android:name="com.facebook.sdk.ApplicationId"
+                    android:value="@string/facebook_app_id" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LoginActivity" />
+
+        <activity
+            android:name=".CategoryDataDisplay"
+            android:label="@string/title_activity_category_data_display"/>
+
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/About"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".ProfileActivity"
+            android:label="@string/Profile"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"
+            />
+
+        </activity>
+    </application>
+
+
+    <!--
+    This declares that this app uses the instrumentation test runner targeting
+    the package of com.android.mail.  To run the tests use the command:
+    "adb shell am instrument -w com.android.mail.emailtests/android.support.test.runner.AndroidJUnitRunner"
+i
+    -->
+    <instrumentation
+        android:name="android.support.test.runner.AndroidJUnitRunner"
+        android:targetPackage="com.example.android.testing." />
+
+</manifest>
