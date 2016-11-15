@@ -38,30 +38,22 @@ public class LoginActivity extends AppCompatActivity {
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_login);
         TAG = "Login.Activity";
-        checkIfLoggedin(accessToken.getCurrentAccessToken() != null);
-        /*if(AccessToken.getCurrentAccessToken() != null){
+
+        if(AccessToken.getCurrentAccessToken() != null){
             goMainScreen(Profile.getCurrentProfile());
         }
-        */
+
         //Callback manager manages callbacks into the FB SDK from an Activity's onActivityResult() Method.
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
 
-        //Access token track
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-
-
-            }
-        };
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             //If login in successful,
             @Override
             public void onSuccess(LoginResult loginResult) {
-                //accessToken.getCurrentAccessToken();
+                /*accessToken.getCurrentAccessToken();
 
-                accessToken = loginResult.getAccessToken();
+                //accessToken = loginResult.getAccessToken();
 
                 Profile profile = Profile.getCurrentProfile();
 
@@ -86,8 +78,10 @@ public class LoginActivity extends AppCompatActivity {
                 parameters.putString("fields", "id,name");
                 request.setParameters(parameters);
                 request.executeAsync();
+                */
+                Profile profile = Profile.getCurrentProfile();
 
-                goMainScreen(Profile.getCurrentProfile());
+                goMainScreen(profile);
 
 
             }
@@ -103,13 +97,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void checkIfLoggedin(boolean isLoggedIn){
-        if(isLoggedIn){
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
-
-    }
    private void goMainScreen(Profile profile) {
        if(profile != null){
             //Passing in the name,id and photo from the profile.
@@ -122,9 +109,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-
-        if(accessToken != null){
-            checkIfLoggedin(accessToken.getCurrentAccessToken() != null);
+        if(AccessToken.getCurrentAccessToken() != null){
+            goMainScreen(Profile.getCurrentProfile());
         }
     }
 
