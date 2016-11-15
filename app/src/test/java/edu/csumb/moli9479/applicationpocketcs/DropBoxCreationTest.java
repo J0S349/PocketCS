@@ -24,7 +24,7 @@ public class DropBoxCreationTest extends AppCompatActivity{
         LinearLayout spinnerLayout = new LinearLayout(this);
         String [] algorithmCategories = {"Sorting", "Searching", "String Matching", "Graph Problems", "Optimization"};
         CategoryScreen categoryScreen = new CategoryScreen();
-        boolean dropBoxIsCreated = categoryScreen.createDefaultDropBox(algorithmCategories, 0, spinnerLayout);
+        boolean dropBoxIsCreated = categoryScreen.createDefaultAlgorithmDropBox(algorithmCategories, spinnerLayout);
         assertThat(dropBoxIsCreated, is(true));
     }
 }

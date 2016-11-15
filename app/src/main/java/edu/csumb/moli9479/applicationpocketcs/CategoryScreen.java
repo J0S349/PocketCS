@@ -37,21 +37,21 @@ public class CategoryScreen extends AppCompatActivity {
                 //Toast.makeText(CategoryScreen.this, "Algorithms Screen should show", Toast.LENGTH_LONG).show();
                 System.out.println("Algorithms Screen should show");
                 String [] algorithmCategories = {"Sorting", "Searching", "String Matching", "Graph Problems", "Optimization"};
-                dropBoxIsCreated = createDefaultDropBox(algorithmCategories, 0, spinnerLayout);
+                dropBoxIsCreated = createDefaultAlgorithmDropBox(algorithmCategories, spinnerLayout);
                 System.out.println(dropBoxIsCreated);
                 break;
             case 1:
                 //Toast.makeText(CategoryScreen.this, "Data Structures Screen should show", Toast.LENGTH_LONG).show();
                 System.out.println("Data Structures Screen should show");
                 String [] dataStructuresCategories = {"LinkedLists", "Trees", "Sets", "Hashing", "Arrays"};
-                dropBoxIsCreated = createDefaultDropBox(dataStructuresCategories, 1, spinnerLayout);
+                dropBoxIsCreated = createDefaultDataStructureDropBox(dataStructuresCategories, spinnerLayout);
                 System.out.println(dropBoxIsCreated);
                 break;
             case 2:
                 //Toast.makeText(CategoryScreen.this, "Software Design Patterns Screen should show", Toast.LENGTH_LONG).show();
                 System.out.println("Software Design Patterns Screen should show");
                 String [] softwareDesignPatternsCategories = {"Algorithm Strategy Patterns", "Computational Design Patterns", "Execution Patterns", "Implementation Strategy Patterns", "Structural Design Patterns"};
-                dropBoxIsCreated = createDefaultDropBox(softwareDesignPatternsCategories, 2, spinnerLayout);
+                dropBoxIsCreated = createDefaultSoftwareDesignPatternDropBox(softwareDesignPatternsCategories, spinnerLayout);
                 break;
             default:
                 //Toast.makeText(CategoryScreen.this, "Error Populating Screen", Toast.LENGTH_LONG).show();
@@ -62,34 +62,13 @@ public class CategoryScreen extends AppCompatActivity {
         System.out.println(dropBoxIsCreated);
     }
 
-    public boolean createDefaultDropBox(String []categories, int caseNumber, LinearLayout spinnerLayout) {
+    public boolean createDefaultAlgorithmDropBox(String []categories, LinearLayout spinnerLayout) {
         ArrayList<String> categoryDefaultSpinnerValues = new ArrayList<String>();
-        switch (caseNumber) {
-            case 0:
-                categoryDefaultSpinnerValues.add("Quick Sort");
-                categoryDefaultSpinnerValues.add("Binary Search");
-                categoryDefaultSpinnerValues.add("Boyer-Moore String Search");
-                categoryDefaultSpinnerValues.add("Traveling-Salesman Problem");
-                categoryDefaultSpinnerValues.add("First fit");
-                break;
-            case 1:
-                categoryDefaultSpinnerValues.add("Doubly Linked List");
-                categoryDefaultSpinnerValues.add("Binary Tree");
-                categoryDefaultSpinnerValues.add("MultiSet");
-                categoryDefaultSpinnerValues.add("HashMap");
-                categoryDefaultSpinnerValues.add("Dynamic Array");
-                break;
-            case 2:
-                categoryDefaultSpinnerValues.add("???");
-                categoryDefaultSpinnerValues.add("???");
-                categoryDefaultSpinnerValues.add("???");
-                categoryDefaultSpinnerValues.add("???");
-                categoryDefaultSpinnerValues.add("???");
-                break;
-            default:
-                System.out.println("Case number is out of bounds");
-                return false;
-        }
+        categoryDefaultSpinnerValues.add("Quick Sort");
+        categoryDefaultSpinnerValues.add("Binary Search");
+        categoryDefaultSpinnerValues.add("Boyer-Moore String Search");
+        categoryDefaultSpinnerValues.add("Traveling-Salesman Problem");
+        categoryDefaultSpinnerValues.add("First fit");
         for (int i = 0; i < categories.length; i++) {
             String[] defaultSpinnerValue = new String[2];
             defaultSpinnerValue[0] = categories[i];
@@ -106,6 +85,9 @@ public class CategoryScreen extends AppCompatActivity {
                 case 3:
                     defaultSpinnerValue[1] = categoryDefaultSpinnerValues.get(i);
                     break;
+                case 4:
+                    defaultSpinnerValue[1] = categoryDefaultSpinnerValues.get(i);
+                    break;
                 default:
                     System.out.println("Unable to add to drop box");
                     return false;
@@ -118,7 +100,121 @@ public class CategoryScreen extends AppCompatActivity {
                     final Intent intent;
                     switch (position) {
                         case 2:
-                            Toast.makeText(CategoryScreen.this, "Add a new category here", Toast.LENGTH_LONG).show();
+                            Toast.makeText(CategoryScreen.this, "Add a new algorithm here", Toast.LENGTH_LONG).show();
+                            break;
+                        case 1:
+                            intent = new Intent(CategoryScreen.this, CategoryDataDisplay.class);
+                            startActivity(intent);
+                            break;
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            spinnerLayout.addView(newSpinner);
+        }
+        return true;
+    }
+
+    public boolean createDefaultDataStructureDropBox(String []categories, LinearLayout spinnerLayout) {
+        ArrayList<String> categoryDefaultSpinnerValues = new ArrayList<String>();
+        categoryDefaultSpinnerValues.add("Doubly Linked List");
+        categoryDefaultSpinnerValues.add("Binary Tree");
+        categoryDefaultSpinnerValues.add("MultiSet");
+        categoryDefaultSpinnerValues.add("HashMap");
+        categoryDefaultSpinnerValues.add("Dynamic Array");
+        for (int i = 0; i < categories.length; i++) {
+            String[] defaultSpinnerValue = new String[2];
+            defaultSpinnerValue[0] = categories[i];
+            switch (i) {
+                case 0:
+                    defaultSpinnerValue[1] = categoryDefaultSpinnerValues.get(i);
+                    break;
+                case 1:
+                    defaultSpinnerValue[1] = categoryDefaultSpinnerValues.get(i);
+                    break;
+                case 2:
+                    defaultSpinnerValue[1] = categoryDefaultSpinnerValues.get(i);
+                    break;
+                case 3:
+                    defaultSpinnerValue[1] = categoryDefaultSpinnerValues.get(i);
+                    break;
+                case 4:
+                    defaultSpinnerValue[1] = categoryDefaultSpinnerValues.get(i);
+                    break;
+                default:
+                    System.out.println("Unable to add to drop box");
+                    return false;
+            }
+            Spinner newSpinner = new Spinner(this);
+            newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
+            newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    final Intent intent;
+                    switch (position) {
+                        case 2:
+                            Toast.makeText(CategoryScreen.this, "Add a new data structure here", Toast.LENGTH_LONG).show();
+                            break;
+                        case 1:
+                            intent = new Intent(CategoryScreen.this, CategoryDataDisplay.class);
+                            startActivity(intent);
+                            break;
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            spinnerLayout.addView(newSpinner);
+        }
+        return true;
+    }
+
+    public boolean createDefaultSoftwareDesignPatternDropBox(String []categories, LinearLayout spinnerLayout) {
+        ArrayList<String> categoryDefaultSpinnerValues = new ArrayList<String>();
+        categoryDefaultSpinnerValues.add("???");
+        categoryDefaultSpinnerValues.add("???");
+        categoryDefaultSpinnerValues.add("???");
+        categoryDefaultSpinnerValues.add("???");
+        categoryDefaultSpinnerValues.add("???");
+        for (int i = 0; i < categories.length; i++) {
+            String[] defaultSpinnerValue = new String[2];
+            defaultSpinnerValue[0] = categories[i];
+            switch (i) {
+                case 0:
+                    defaultSpinnerValue[1] = categoryDefaultSpinnerValues.get(i);
+                    break;
+                case 1:
+                    defaultSpinnerValue[1] = categoryDefaultSpinnerValues.get(i);
+                    break;
+                case 2:
+                    defaultSpinnerValue[1] = categoryDefaultSpinnerValues.get(i);
+                    break;
+                case 3:
+                    defaultSpinnerValue[1] = categoryDefaultSpinnerValues.get(i);
+                    break;
+                case 4:
+                    defaultSpinnerValue[1] = categoryDefaultSpinnerValues.get(i);
+                    break;
+                default:
+                    System.out.println("Unable to add to drop box");
+                    return false;
+            }
+            Spinner newSpinner = new Spinner(this);
+            newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
+            newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    final Intent intent;
+                    switch (position) {
+                        case 2:
+                            Toast.makeText(CategoryScreen.this, "Add a new software design pattern here", Toast.LENGTH_LONG).show();
                             break;
                         case 1:
                             intent = new Intent(CategoryScreen.this, CategoryDataDisplay.class);
