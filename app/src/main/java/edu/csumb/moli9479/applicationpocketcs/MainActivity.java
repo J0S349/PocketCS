@@ -26,83 +26,83 @@ import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 import static edu.csumb.moli9479.applicationpocketcs.R.attr.icon;
 import static edu.csumb.moli9479.applicationpocketcs.R.attr.preserveIconSpacing;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnClickListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ProfilePictureView profilepic;
+    private static final int ALGORITHMS_INFO = 0;
+    private static final int DATASTRUCTURES_INFO = 1;
+    private static final int SOFTWAREDESIGN_INFO = 2;
+
     private ActionBarDrawerToggle toggle;
-    private DrawerLayout drawerLayout;
     public static User currentUser;
     private String TAG;
-    private TextView nameView;
-    private TextView idView;
+
+    @BindView(R.id.AlgorithmsButton) Button algorithms;
+    @BindView(R.id.DataStructuresButton) Button dataStructures;
+    @BindView(R.id.SoftwareDesignPatternButton) Button softwareDesign;
+    @BindView(R.id.image) ProfilePictureView profilePicture;
+    @BindView(R.id.nameTextView) TextView nameView;
+    @BindView(R.id.idTextView) TextView idView;
+    @BindView(R.id.drawerLayout) DrawerLayout drawerLayout;
+    @BindView(R.id.navigationView) NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TAG = "MainActivity";
+        ButterKnife.bind(this);
 
-        //Creating the Navigation Drawer.
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        setNavigationDrawer();
+        setUserProfilePhoto_Name_ID();
+
+    }
+
+    public void setNavigationDrawer(){
         toggle = new ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
-
-        Button algorithms = (Button)findViewById(R.id.AlgorithmsButton);
-        algorithms.setOnClickListener(this);
-        Button dataStructures = (Button)findViewById(R.id.DataStructuresButton);
-        dataStructures.setOnClickListener(this);
-        Button softwareDesign = (Button)findViewById(R.id.SoftwareDesignPatternButton);
-        softwareDesign.setOnClickListener(this);
-
-        profilepic = (ProfilePictureView) findViewById(R.id.image);
-        Profile profile = Profile.getCurrentProfile();
-        profilepic.setProfileId(profile.getId());
-
-        nameView = (TextView) findViewById(R.id.nameTextView);
-        nameView.setText(profile.getName());
-
-        idView = (TextView) findViewById(R.id.idTextView);
-        idView.setText(profile.getId());
-
-
-        //If user is not logged in, go to the login screen.
-       // if(AccessToken.getCurrentAccessToken() == null){
-        //    goLoginScreen();
-        //}
     }
 
-    public void onClick(View v) {
+    public void setUserProfilePhoto_Name_ID(){
+        Profile profile = Profile.getCurrentProfile();
+
+        profilePicture.setProfileId(profile.getId());
+        nameView.setText(profile.getName());
+        idView.setText(profile.getId());
+    }
+
+    @OnClick(R.id.AlgorithmsButton)
+    public void onAlgorithmsButtonClick(){
+        initializeCategoryScreen(ALGORITHMS_INFO);
+        //Toast.makeText(this, "Clicked on algo button", Toast.LENGTH_LONG).show();
+    }
+
+    @OnClick(R.id.DataStructuresButton)
+    public void onDataStructuresButtononClick(){
+        initializeCategoryScreen(DATASTRUCTURES_INFO);
+    }
+
+    @OnClick(R.id.SoftwareDesignPatternButton)
+    public void onSoftwareDesignonClick(){
+        initializeCategoryScreen(SOFTWAREDESIGN_INFO);
+    }
+
+    public void initializeCategoryScreen(int info) {
         Bundle extraInfo = new Bundle();
-        if(v.getId() == R.id.AlgorithmsButton)
-        {
-            Intent i = new Intent(this, CategoryScreen.class);
-            extraInfo.putInt("categoryScreen", 0);
-            i.putExtras(extraInfo);
-            startActivity(i);
-        }
-        else if(v.getId() == R.id.DataStructuresButton)
-        {
-            Intent i = new Intent(this, CategoryScreen.class);
-            extraInfo.putInt("categoryScreen", 1);
-            i.putExtras(extraInfo);
-            startActivity(i); // Or startActivity(new Intent(this, About.class));
-        }
-        else if(v.getId() == R.id.SoftwareDesignPatternButton)
-        {
-            Intent i = new Intent(this, CategoryScreen.class);
-            extraInfo.putInt("categoryScreen", 2);
-            i.putExtras(extraInfo);
-            startActivity(i); // Or startActivity(new Intent(this, About.class));
-        }
+        Intent i = new Intent(this, CategoryScreen.class);
+        extraInfo.putInt("categoryScreen", info);
+        i.putExtras(extraInfo);
+        startActivity(i);
     }
 
     /******************************************************************************************************************
