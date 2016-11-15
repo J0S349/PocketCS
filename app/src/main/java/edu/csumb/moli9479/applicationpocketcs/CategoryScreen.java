@@ -25,7 +25,6 @@ public class CategoryScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_screen);
 
-        //Toast.makeText(CategoryScreen.this, "Screen accessed", Toast.LENGTH_LONG).show();
         System.out.println("Screen accessed");
 
         LinearLayout spinnerLayout = (LinearLayout)findViewById(R.id.spinnerLayout);
@@ -34,27 +33,23 @@ public class CategoryScreen extends AppCompatActivity {
 
         switch (getIntent().getExtras().getInt("categoryScreen")) {
             case 0:
-                //Toast.makeText(CategoryScreen.this, "Algorithms Screen should show", Toast.LENGTH_LONG).show();
                 System.out.println("Algorithms Screen should show");
                 String [] algorithmCategories = {"Sorting", "Searching", "String Matching", "Graph Problems", "Optimization"};
                 dropBoxIsCreated = createDefaultAlgorithmDropBox(algorithmCategories, spinnerLayout);
                 System.out.println(dropBoxIsCreated);
                 break;
             case 1:
-                //Toast.makeText(CategoryScreen.this, "Data Structures Screen should show", Toast.LENGTH_LONG).show();
                 System.out.println("Data Structures Screen should show");
                 String [] dataStructuresCategories = {"LinkedLists", "Trees", "Sets", "Hashing", "Arrays"};
                 dropBoxIsCreated = createDefaultDataStructureDropBox(dataStructuresCategories, spinnerLayout);
                 System.out.println(dropBoxIsCreated);
                 break;
             case 2:
-                //Toast.makeText(CategoryScreen.this, "Software Design Patterns Screen should show", Toast.LENGTH_LONG).show();
                 System.out.println("Software Design Patterns Screen should show");
                 String [] softwareDesignPatternsCategories = {"Algorithm Strategy Patterns", "Computational Design Patterns", "Execution Patterns", "Implementation Strategy Patterns", "Structural Design Patterns"};
                 dropBoxIsCreated = createDefaultSoftwareDesignPatternDropBox(softwareDesignPatternsCategories, spinnerLayout);
                 break;
             default:
-                //Toast.makeText(CategoryScreen.this, "Error Populating Screen", Toast.LENGTH_LONG).show();
                 dropBoxIsCreated = false;
                 System.out.println("Error Populating screen");
                 break;
@@ -92,29 +87,9 @@ public class CategoryScreen extends AppCompatActivity {
                     System.out.println("Unable to add to drop box");
                     return false;
             }
-            Spinner newSpinner = new Spinner(this);
-            newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
-            newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    final Intent intent;
-                    switch (position) {
-                        case 2:
-                            Toast.makeText(CategoryScreen.this, "Add a new algorithm here", Toast.LENGTH_LONG).show();
-                            break;
-                        case 1:
-                            intent = new Intent(CategoryScreen.this, CategoryDataDisplay.class);
-                            startActivity(intent);
-                            break;
-                    }
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-            spinnerLayout.addView(newSpinner);
+            if(!displayDropBox(spinnerLayout, defaultSpinnerValue)) {
+                return false;
+            }
         }
         return true;
     }
@@ -149,29 +124,9 @@ public class CategoryScreen extends AppCompatActivity {
                     System.out.println("Unable to add to drop box");
                     return false;
             }
-            Spinner newSpinner = new Spinner(this);
-            newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
-            newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    final Intent intent;
-                    switch (position) {
-                        case 2:
-                            Toast.makeText(CategoryScreen.this, "Add a new data structure here", Toast.LENGTH_LONG).show();
-                            break;
-                        case 1:
-                            intent = new Intent(CategoryScreen.this, CategoryDataDisplay.class);
-                            startActivity(intent);
-                            break;
-                    }
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-            spinnerLayout.addView(newSpinner);
+            if(!displayDropBox(spinnerLayout, defaultSpinnerValue)) {
+                return false;
+            }
         }
         return true;
     }
@@ -206,30 +161,38 @@ public class CategoryScreen extends AppCompatActivity {
                     System.out.println("Unable to add to drop box");
                     return false;
             }
-            Spinner newSpinner = new Spinner(this);
-            newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
-            newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    final Intent intent;
-                    switch (position) {
-                        case 2:
-                            Toast.makeText(CategoryScreen.this, "Add a new software design pattern here", Toast.LENGTH_LONG).show();
-                            break;
-                        case 1:
-                            intent = new Intent(CategoryScreen.this, CategoryDataDisplay.class);
-                            startActivity(intent);
-                            break;
-                    }
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-            spinnerLayout.addView(newSpinner);
+            if(!displayDropBox(spinnerLayout, defaultSpinnerValue)) {
+                System.out.println("Drop box cannot be displayed");
+                return false;
+            }
         }
+        return true;
+    }
+
+    public boolean displayDropBox(LinearLayout spinnerLayout, String [] defaultSpinnerValue) {
+        Spinner newSpinner = new Spinner(this);
+        newSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, defaultSpinnerValue));
+        newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                final Intent intent;
+                switch (position) {
+                    case 2:
+                        Toast.makeText(CategoryScreen.this, "Add a new software design pattern here", Toast.LENGTH_LONG).show();
+                        break;
+                    case 1:
+                        intent = new Intent(CategoryScreen.this, CategoryDataDisplay.class);
+                        startActivity(intent);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinnerLayout.addView(newSpinner);
         return true;
     }
 }
