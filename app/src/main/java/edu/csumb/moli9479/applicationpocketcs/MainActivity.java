@@ -105,20 +105,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(i);
     }
 
-    /******************************************************************************************************************
-     * Method that is used to send the user back to the loginScreen if they are not logged in.
-     ******************************************************************************************************************/
-    private void goLoginScreen() {
+   
+    private void goToLoginScreen() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-    /*************************************************************************************************************
-    Method that will log the user out of the application.
-     *************************************************************************************************************
-     * @param view*/
-    public void logout(DialogInterface.OnClickListener view){
+
+    public void logoutUser(DialogInterface.OnClickListener view){
 
         GraphRequest delPermRequest = new GraphRequest(AccessToken.getCurrentAccessToken(), "/{user-id}/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
             @Override
@@ -136,13 +131,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d(TAG,"Executing revoke permissions with graph path" + delPermRequest.getGraphPath());
         delPermRequest.executeAsync();
         LoginManager.getInstance().logOut();
-        goLoginScreen();
+        goToLoginScreen();
     }
 
-    /*******************************************************************************
-     Method for the hamburger icon, if the item clicked is the hamburger icon
-     the navigation will appear, else it will be hidden.
-     *******************************************************************************/
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(toggle.onOptionsItemSelected(item)){
@@ -188,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                logout(this);
+                                logoutUser(this);
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
