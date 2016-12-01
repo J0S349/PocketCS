@@ -11,9 +11,9 @@
     "adb shell am instrument -w com.android.mail.emailtests/android.support.test.runner.AndroidJUnitRunner"
 i
     -->
-    <instrumentation
+    <!--<instrumentation
         android:name="android.support.test.runner.AndroidJUnitRunner"
-        android:targetPackage="com.example.android.testing." />
+        android:targetPackage="com.example.android.testing." /> -->
 
     <application
         android:name=".PocketCSApp"
