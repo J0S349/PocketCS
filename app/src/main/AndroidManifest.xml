@@ -15,6 +15,16 @@ i
         android:name="android.support.test.runner.AndroidJUnitRunner"
         android:targetPackage="com.example.android.testing." /> -->
 
+    <!--
+    This declares that this app uses the instrumentation test runner targeting
+    the package of com.android.mail.  To run the tests use the command:
+    "adb shell am instrument -w com.android.mail.emailtests/android.support.test.runner.AndroidJUnitRunner"
+i
+    -->
+    <!--<instrumentation
+        android:name="android.support.test.runner.AndroidJUnitRunner"/>
+        android:targetPackage="com.example.android.testing."-->
+
     <application
         android:name=".PocketCSApp"
         android:allowBackup="true"
@@ -35,6 +45,7 @@ i
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider"
             android:exported="true" />
+
 
         <activity
             android:name=".CategoryScreen"
@@ -85,6 +96,15 @@ i
         </activity>
         <activity android:name=".quizTemplate" />
         <activity android:name=".quizResults"></activity>
+        <activity android:name=".CategoryInputScreen" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

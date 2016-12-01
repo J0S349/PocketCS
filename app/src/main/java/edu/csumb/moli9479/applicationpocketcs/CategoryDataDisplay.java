@@ -1,19 +1,14 @@
 package edu.csumb.moli9479.applicationpocketcs;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import com.koushikdutta.ion.Ion;
 import java.util.HashMap;
 
 public class CategoryDataDisplay extends AppCompatActivity {
@@ -23,66 +18,192 @@ public class CategoryDataDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_data_display);
 
-        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.activity_category_data_display);
-        HashMap<Integer, Algorithms> algorithms;
-        Algorithms algorithms1 = new Algorithms();
-        algorithms1.setRuntime("O(nlog(n))");
-        algorithms1.setDescription("Quickly sorts an array");
-        algorithms1.setHelpfulLink("http://www.cc.gatech.edu/classes/cs3158_98_fall/quicksort.html");
-        algorithms1.setCategoryID(1);
-        algorithms1.setImage((R.drawable.quicksort_pseudocode + ""));
-        algorithms1.setName("Quick Sort");
-        algorithms1.setUserID(1);
         OurSQLiteDatabase database = OurSQLiteDatabase.getDatabase(this);
 
-        System.out.println(algorithms1);
+        try {
+            if(getIntent().getExtras().getBoolean("isAdding")) {
+                System.out.println(getIntent().getExtras().getInt("categoryToAdd"));
+                System.out.println(getIntent().getExtras().getString("categoryName"));
+                System.out.println(getIntent().getExtras().getString("categoryDescription"));
+                System.out.println(getIntent().getExtras().getString("categoryImage"));
+                System.out.println(getIntent().getExtras().getString("categoryLink"));
 
-        database.addAlgorithm(algorithms1);
-        algorithms = database.getAllAlgorithms();
+                switch (getIntent().getExtras().getInt("categoryToAdd")) {
+                    case 0:
+                        Algorithms algorithm = new Algorithms();
+                        algorithm.setName(getIntent().getExtras().getString("categoryName"));
+                        algorithm.setDescription(getIntent().getExtras().getString("categoryDescription"));
+                        algorithm.setRuntime(getIntent().getExtras().getString("categoryRuntime"));
+                        algorithm.setImage(getIntent().getExtras().getString("categoryImage"));
+                        algorithm.setHelpfulLink(getIntent().getExtras().getString("categoryLink"));
+                        algorithm.setCategoryID(getIntent().getExtras().getInt("categoryInputNumber"));
+                        algorithm.setUserID(database.getAllAlgorithms().size());
 
-        System.out.println(algorithms);
+                        database.addAlgorithm(algorithm);
 
-        TextView description = (TextView)findViewById(R.id.description);
-        description.setText(algorithms.get(1).getDescription());
+                        displayAlgorithmData(algorithm);
+                        break;
+                    case 1:
+                        DataStructures dataStructures = new DataStructures();
+                        dataStructures.setName(getIntent().getExtras().getString("categoryName"));
+                        dataStructures.setDescription(getIntent().getExtras().getString("categoryDescription"));
+                        dataStructures.setRuntime(getIntent().getExtras().getString("categoryRuntime"));
+                        dataStructures.setImage(getIntent().getExtras().getString("categoryImage"));
+                        dataStructures.setHelpfulLink(getIntent().getExtras().getString("categoryLink"));
+                        dataStructures.setCategoryID(getIntent().getExtras().getInt("categoryInputNumber"));
 
-        //linearLayout.addView(description);
+                        database.addDataStructure(dataStructures);
 
-        TextView runtime = (TextView)findViewById(R.id.runtime);
-        runtime.setText(algorithms.get(1).getRuntime());
+                        displayDataStructureData(dataStructures);
+                        break;
+                    case 2:
+                        SoftwareDesign softwareDesign = new SoftwareDesign();
+                        softwareDesign.setName(getIntent().getExtras().getString("categoryName"));
+                        softwareDesign.setDescription(getIntent().getExtras().getString("categoryDescription"));
+                        softwareDesign.setBenefits(getIntent().getExtras().getString("categoryBenefits"));
+                        softwareDesign.setCosts(getIntent().getExtras().getString("categoryCosts"));
+                        softwareDesign.setImage(getIntent().getExtras().getString("categoryImage"));
+                        softwareDesign.setHelpfulLink(getIntent().getExtras().getString("categoryLink"));
+                        softwareDesign.setCategoryID(getIntent().getExtras().getInt("categoryInputNumber"));
+                        softwareDesign.setUserID(database.getAllSoftwareDesigns().size());
 
-        //linearLayout.addView(runtime);
+                        database.addSoftwareDesign(softwareDesign);
 
-        ImageView pseudocode = (ImageView)findViewById(R.id.pseudocode);
-        if(algorithms.get(1).getImage().equals((R.drawable.quicksort_pseudocode))) {
-            System.out.println("Pseudocode matches!");
-        }
-        Drawable image = getResources().getDrawable((R.drawable.quicksort_pseudocode));
-        pseudocode.setImageDrawable(image);
-
-        //linearLayout.addView(pseudocode);
-
-        TextView links = (TextView)findViewById(R.id.links);
-        links.setText(algorithms.get(1).getHelpfulLink());
-
-        //linearLayout.addView(links);
-
-        setContentView(linearLayout);
-
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                        displaySoftwareDesignPatternData(softwareDesign);
+                        break;
+                    default:
+                        System.out.println("Error adding to database");
+                        break;
+                }
+            } else {
+                switch (getIntent().getExtras().getInt("categoryID")) {
+                    case 0:
+                        HashMap<Integer, Algorithms> algorithms = database.getAllAlgorithms();
+                        for (HashMap.Entry<Integer, Algorithms> algorithm : algorithms.entrySet()) {
+                            if(algorithm.getValue().getName().equals(getIntent().getExtras().getString("algorithmName"))) {
+                                displayAlgorithmData(algorithm.getValue());
+                                break;
+                            }
+                        }
+                        break;
+                    case 1:
+                        HashMap<Integer, DataStructures> dataStructures = database.getAllDataStructures();
+                        for (HashMap.Entry<Integer, DataStructures> dataStructure : dataStructures.entrySet()) {
+                            if(dataStructure.getValue().getName().equals(getIntent().getExtras().getString("dataStructureName"))) {
+                                displayDataStructureData(dataStructure.getValue());
+                                break;
+                            }
+                        }
+                        break;
+                    case 2:
+                        HashMap<Integer, SoftwareDesign> softwareDesignPatterns = database.getAllSoftwareDesigns();
+                        for (HashMap.Entry<Integer, SoftwareDesign> softwareDesign : softwareDesignPatterns.entrySet()) {
+                            if(softwareDesign.getValue().getName().equals(getIntent().getExtras().getString("softwareDesignName"))) {
+                                displaySoftwareDesignPatternData(softwareDesign.getValue());
+                                break;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
-        });*/
+        }catch (Exception e) {
+            System.out.println("Addition cancelled");
+        }
+        //http://bit.ly/2fXkXLa
+        //algorithms1.setHelpfulLink("http://www.cc.gatech.edu/classes/cs3158_98_fall/quicksort.html");
+        //http://b.gatech.edu/2gLvfPF
+        //http://bit.ly/2gNmW3x
     }
 
-    /*public static Context getContext() {
-        return this;
-    }*/
+    public void displayAlgorithmData(Algorithms algorithm) {
 
+        System.out.println(algorithm);
+
+        TextView name = (TextView)findViewById((R.id.name));
+        name.setText(algorithm.getName());
+
+        TextView description = (TextView)findViewById(R.id.description);
+        description.setText(algorithm.getDescription());
+
+        TextView runtime = (TextView)findViewById(R.id.runtime);
+        runtime.setText(algorithm.getRuntime());
+
+        ImageView pseudocode = (ImageView)findViewById(R.id.pseudocode);
+        try {
+            Ion.with(pseudocode).load(algorithm.getImage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        TextView links = (TextView)findViewById(R.id.links);
+        links.setText(algorithm.getHelpfulLink());
+        Linkify.addLinks(links, Linkify.ALL);
+        links.setLinksClickable(true);
+        links.setMovementMethod(LinkMovementMethod.getInstance());
+        links.setHighlightColor(Color.BLUE);
+    }
+
+    public void displayDataStructureData(DataStructures dataStructure) {
+
+        System.out.println(dataStructure);
+
+        TextView name = (TextView)findViewById(R.id.name);
+        name.setText(dataStructure.getName());
+
+        TextView description = (TextView)findViewById(R.id.description);
+        description.setText(dataStructure.getDescription());
+
+        TextView runtime = (TextView)findViewById(R.id.runtime);
+        runtime.setText(dataStructure.getRuntime());
+
+        ImageView pseudocode = (ImageView)findViewById(R.id.pseudocode);
+        try {
+            Ion.with(pseudocode).load(dataStructure.getImage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        TextView links = (TextView)findViewById(R.id.links);
+        links.setText(dataStructure.getHelpfulLink());
+        Linkify.addLinks(links, Linkify.ALL);
+        links.setLinksClickable(true);
+        links.setMovementMethod(LinkMovementMethod.getInstance());
+        links.setHighlightColor(Color.BLUE);
+    }
+
+    public void displaySoftwareDesignPatternData(SoftwareDesign softwareDesign) {
+
+        System.out.println(softwareDesign);
+
+        LinearLayout costLayout = (LinearLayout)findViewById(R.id.costs);
+
+        TextView name = (TextView)findViewById(R.id.name);
+        name.setText(softwareDesign.getName());
+
+        TextView description = (TextView)findViewById(R.id.description);
+        description.setText(softwareDesign.getDescription());
+
+        TextView benefits = (TextView)findViewById(R.id.runtime);
+        benefits.setText(softwareDesign.getBenefits());
+
+        TextView costs = new TextView(this);
+        costs.setText(softwareDesign.getCosts());
+        costLayout.addView(costs);
+
+        ImageView pseudocode = (ImageView)findViewById(R.id.pseudocode);
+        try {
+            Ion.with(pseudocode).load(softwareDesign.getImage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        TextView links = (TextView)findViewById(R.id.links);
+        links.setText(softwareDesign.getHelpfulLink());
+        Linkify.addLinks(links, Linkify.ALL);
+        links.setLinksClickable(true);
+        links.setMovementMethod(LinkMovementMethod.getInstance());
+        links.setHighlightColor(Color.BLUE);
+    }
 }
