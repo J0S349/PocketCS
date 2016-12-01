@@ -36,7 +36,7 @@ test:
         # run tests against the emulator.
         #- ./gradlew testDebug
         #- ./gradlew connectedAndroidTest
-        -./gradlew build test
+        - ./gradlew build test jacocoTestReport
 
         # copy the build outputs to artifacts
         #- cp -r PocketCS/build/outputs $CIRCLE_ARTIFACTS
