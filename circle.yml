@@ -35,7 +35,9 @@ test:
         - circle-android wait-for-boot
         # run tests against the emulator.
         #- ./gradlew testDebug
-        - ./gradlew connectedAndroidTest
+        #- ./gradlew connectedAndroidTest
+        -./gradlew build test
+
         # copy the build outputs to artifacts
         #- cp -r PocketCS/build/outputs $CIRCLE_ARTIFACTS
         # copy the test results to the test results directory.
