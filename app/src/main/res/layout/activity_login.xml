@@ -10,6 +10,7 @@
     tools:context="edu.csumb.moli9479.applicationpocketcs.LoginActivity"
     android:background="#9E9E9E">
 
+
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="match_parent"

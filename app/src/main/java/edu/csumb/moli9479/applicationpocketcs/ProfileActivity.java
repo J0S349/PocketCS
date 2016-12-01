@@ -7,21 +7,23 @@ import android.widget.TextView;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ProfileActivity extends AppCompatActivity {
-    private ProfilePictureView profilepic;
-    private TextView username;
+
+    @BindView(R.id.userProfilePhoto) ProfilePictureView profilepic;
+    @BindView(R.id.userProfileName) TextView username;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        ButterKnife.bind(this);
 
         Profile profile = Profile.getCurrentProfile();
-        profilepic = (ProfilePictureView) findViewById(R.id.userProfilePhoto);
         profilepic.setProfileId(profile.getId());
-
-        username = (TextView) findViewById(R.id.userName);
         username.setText(profile.getName());
 
     }

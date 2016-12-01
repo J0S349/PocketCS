@@ -27,19 +27,43 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="18dp">
+            android:layout_marginTop="18dp"
+            android:visibility="gone">
          </com.facebook.login.widget.ProfilePictureView>
 
+
+        <TextView
+            android:text="TextView"
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/pocketcslogo"
+            android:layout_alignRight="@+id/nameTextView"
+            android:layout_alignEnd="@+id/nameTextView"
+            android:id="@+id/idTextView"
+            android:visibility="gone"/>
 
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:weightSum="3"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="19dp">
+            android:layout_below="@+id/pocketcslogo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="41dp">
 
             <TableRow
                 android:layout_width="wrap_content"
@@ -84,28 +108,6 @@
                     tools:ignore="RtlHardcoded" />
             </TableRow>
         </TableLayout>
-
-        <TextView
-            android:text="TextView"
-            android:id="@+id/nameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/image"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="18dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginTop="16dp"
-            />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/pocketcslogo"
-            android:layout_alignRight="@+id/nameTextView"
-            android:layout_alignEnd="@+id/nameTextView"
-            android:id="@+id/idTextView" />
 
     </RelativeLayout>
     <android.support.design.widget.NavigationView

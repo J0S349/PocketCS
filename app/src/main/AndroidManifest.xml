@@ -3,6 +3,17 @@
     package="edu.csumb.moli9479.applicationpocketcs">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--
+    This declares that this app uses the instrumentation test runner targeting
+    the package of com.android.mail.  To run the tests use the command:
+    "adb shell am instrument -w com.android.mail.emailtests/android.support.test.runner.AndroidJUnitRunner"
+i
+    -->
+    <instrumentation
+        android:name="android.support.test.runner.AndroidJUnitRunner"
+        android:targetPackage="com.example.android.testing." />
 
     <application
         android:name=".PocketCSApp"
@@ -11,33 +22,36 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".CategoryScreen"
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider"
+            android:exported="true" />
+
+        <activity
+            android:name=".CategoryScreen"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"
-                />
+                android:value=".MainActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
-
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <meta-data
-                    android:name="com.facebook.sdk.ApplicationId"
-                    android:value="@string/facebook_app_id" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -50,11 +64,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-
         <activity
             android:name=".CategoryDataDisplay"
-            android:label="@string/title_activity_category_data_display"/>
-
+            android:label="@string/title_activity_category_data_display" />
         <activity
             android:name=".AboutActivity"
             android:label="@string/About"
@@ -63,27 +75,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-        <activity android:name=".ProfileActivity"
+        <activity
+            android:name=".ProfileActivity"
             android:label="@string/Profile"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"
-            />
-
+                android:value=".MainActivity" />
         </activity>
+        <activity android:name=".quizTemplate" />
+        <activity android:name=".quizResults"></activity>
     </application>
-
-
-    <!--
-    This declares that this app uses the instrumentation test runner targeting
-    the package of com.android.mail.  To run the tests use the command:
-    "adb shell am instrument -w com.android.mail.emailtests/android.support.test.runner.AndroidJUnitRunner"
-i
-    -->
-    <instrumentation
-        android:name="android.support.test.runner.AndroidJUnitRunner"
-        android:targetPackage="com.example.android.testing." />
 
 </manifest>

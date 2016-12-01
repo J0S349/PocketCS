@@ -21,7 +21,7 @@ import java.security.NoSuchAlgorithmException;
 public class PocketCSApp extends Application {
     @Override
     public void onCreate(){
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
         Log.i("PocketCSAPP", "Inside PocketCSAPP class");
         super.onCreate();
           try {

@@ -2,19 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
     android:padding="@dimen/activity_horizontal_margin"
     android:gravity="bottom">
 
+
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="98dp"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"/>
+        android:maxHeight="96dp"
+        android:maxWidth="96dp"
+        android:src="@drawable/transparentpocketcslogo"
+        android:background="@drawable/circularshape"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pocket CS"
+        android:text="@string/pocket_cs"
         android:textColor="@android:color/white"/>
 
 </LinearLayout>

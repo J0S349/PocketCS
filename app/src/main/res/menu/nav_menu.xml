@@ -9,13 +9,27 @@
         android:title="@string/Profile"
         android:icon="@mipmap/ic_person_black_24dp"/>
 
-    <item android:id="@+id/Quizzes_menu_item"
-        android:title="@string/Quizzes"
-        android:icon="@mipmap/ic_edit_black_24dp"/>
-
     <item android:id="@+id/Community_menu_item"
         android:title="@string/Community"
         android:icon="@mipmap/ic_public_black_24dp"/>
+
+    <item android:id="@+id/Quizzes_menu_item"
+        android:title="@string/Quizzes"
+        android:icon="@mipmap/ic_edit_black_24dp">
+        <menu>
+            <item
+                android:id="@+id/algorithms_quiz_menu_item"
+                android:title="@string/Algorithms"/>
+
+            <item
+                android:id="@+id/datastructures_quiz_menu_item"
+                android:title="@string/DataStructures"/>
+
+            <item
+                android:id="@+id/softwareDesign_quiz_menu_item"
+                android:title="@string/SoftwareDesignPatterns"/>
+        </menu>
+    </item>
 
     <item android:id="@+id/Setting_menu_item"
         android:title="@string/Settings"
