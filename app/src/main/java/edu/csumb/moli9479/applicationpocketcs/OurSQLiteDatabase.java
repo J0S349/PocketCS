@@ -97,7 +97,7 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
                 KEY_NAME + " TEXT, " +
                 KEY_DESCRIPTION + " TEXT, " +
                 KEY_USER_ID + " INTEGER, " +
-                KEY_IMAGE + " TEXT" +
+                KEY_IMAGE + " TEXT, " +
                 KEY_BENEFITS + " TEXT, " +
                 KEY_COSTS + " TEXT, " +
                 KEY_CATEGORY_ID + " INTEGER, " +
@@ -122,7 +122,7 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
                 KEY_DESCRIPTION + " TEXT, " +
                 KEY_USER_ID + " INTEGER, " +
                 KEY_RUNTIME + " TEXT, " +
-                KEY_IMAGE + " TEXT" +
+                KEY_IMAGE + " TEXT, " +
                 KEY_CATEGORY_ID + " INTEGER, " +
                 KEY_HELPFUL_LINK + " TEXT, " +
                 KEY_DATE_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
@@ -676,8 +676,8 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
         values.put(KEY_NAME, dataStructure.getName());
         values.put(KEY_DESCRIPTION, dataStructure.getDescription());
         values.put(KEY_USER_ID, dataStructure.getUserID());
-        values.put(KEY_IMAGE, dataStructure.getImage());
         values.put(KEY_RUNTIME, dataStructure.getRuntime());
+        values.put(KEY_IMAGE, dataStructure.getImage());
         values.put(KEY_CATEGORY_ID, dataStructure.getCategoryID());
         values.put(KEY_HELPFUL_LINK, dataStructure.getHelpfulLink());
         values.put(KEY_DATE_CREATED, getDateTime());
@@ -712,8 +712,8 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
                 dataStructure.setName(cursor.getString(1));
                 dataStructure.setDescription(cursor.getString(2));
                 dataStructure.setUserID(cursor.getInt(3));
-                dataStructure.setImage(cursor.getString(4));
-                dataStructure.setRuntime(cursor.getString(5));
+                dataStructure.setRuntime(cursor.getString(4));
+                dataStructure.setImage(cursor.getString(5));
                 dataStructure.setCategoryID(cursor.getInt(6));
                 dataStructure.setHelpfulLink(cursor.getString(7));
                 dataStructure.setDateCreated(cursor.getString(8));
@@ -922,8 +922,8 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
                 algorithm.setName(cursor.getString(1));
                 algorithm.setDescription(cursor.getString(2));
                 algorithm.setUserID(cursor.getInt(3));
-                algorithm.setImage(cursor.getString(4));
-                algorithm.setRuntime(cursor.getString(5));
+                algorithm.setRuntime(cursor.getString(4));
+                algorithm.setImage(cursor.getString(5));
                 algorithm.setCategoryID(cursor.getInt(6));
                 algorithm.setHelpfulLink(cursor.getString(7));
                 algorithm.setDateCreated(cursor.getString(8));
