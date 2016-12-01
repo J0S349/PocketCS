@@ -31,4 +31,26 @@
     <string name="name">name</string>
     <string name="numds">numDS</string>
     <string name="numsw">numSW</string>
+    <string name="pocket_cs">Pocket CS</string>
+    <string name="user_image">user image</string>
+    <string name="_00_00_49">00:00:49</string>
+    <string name="a">A</string>
+    <string name="b">B</string>
+    <string name="c">C</string>
+    <string name="score_0">Score : 0</string>
+    <string name="question">question</string>
+    <string name="play_again">PLAY AGAIN</string>
+
+    <string name="lowQuizScore">"Looks like you could use a few more study sessions.\n"
+                    "Try reviewing your CS concepts by looking at our explanations."</string>
+
+    <string name="midQuizScore">"You are on your way to understanding your CS concepts well,"
+                    "keep it up!"</string>
+
+    <string name="highQuizScore">"Way to go! You got all the answers correct!"</string>
+    <string name="number_of_software_design_patterns">Number of Software Design Patterns</string>
+    <string name="a_short_bio_of_the_user">A short bio of the user</string>
+    <string name="number_of_algorithms">Number of Algorithms</string>
+    <string name="number_of_data_structures">Number of Data Structures</string>
+    <string name="joseph_molina">Joseph Molina</string>
 </resources>

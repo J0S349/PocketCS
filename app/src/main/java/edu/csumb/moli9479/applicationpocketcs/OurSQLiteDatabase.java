@@ -5,8 +5,10 @@ package edu.csumb.moli9479.applicationpocketcs;
  */
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import android.content.ContentValues;
@@ -43,19 +45,23 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
     private static final String KEY_DATE_UPDATED = "dateUpdated";
 
     private static final String TABLE_SOFTWARE_DESIGN_CATEGORY = "softwareDesignCategory";
-
     private static final String TABLE_DATA_STRUCTURES = "dataStructures";
-
     private static final String KEY_RUNTIME = "runtime";
-
     private static final String TABLE_DATA_STRUCTURES_CATEGORY = "dataStructuresCategory";
-
     private static final String TABLE_ALGORITHMS = "algorithms";
-
     private static final String TABLE_ALGORITHMS_CATEGORY = "algorithmsCategory";
 
+    private static final String TABLE_QUESTIONS = "questions";
+    private static final String KEY_QID = "questionid";
+    private static final String KEY_QUESTION = "question";
+    private static final String KEY_ANSWER = "answer"; // correct option
+    private static final String KEY_FIRSTOPTION = "firstOption"; // option a
+    private static final String KEY_SECONDOPTION= "secondOption"; // option b
+    private static final String KEY_THIRDOPTION = "thirdOption"; // option c
+    private static final String KEY_QCATEGORY = "qCategory";
+
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Log TAG for debugging purpose
     private static final String TAG = "PocketCSAppLog";
@@ -155,7 +161,81 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
 
         // execute an SQL statement to create the table
         db.execSQL(CREATE_ALGORITHMS_CATEGORY_TABLE);
+
+        Log.d("OurSQLiteDatabase","created db");
+        String CREATE_QUESTIONS_TABLE = "CREATE TABLE " + TABLE_QUESTIONS + " ( "
+                + KEY_QID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                KEY_QUESTION + " TEXT, " +
+                KEY_ANSWER + " TEXT, " +
+                KEY_FIRSTOPTION + " TEXT, " +
+                KEY_SECONDOPTION + " TEXT, " +
+                KEY_THIRDOPTION + " TEXT, " +
+                KEY_QCATEGORY + " INTEGER)";
+
+        db.execSQL(CREATE_QUESTIONS_TABLE);
+        Log.d("OurSQLiteDatabase","created db");
     }
+
+    public void addPredeterminedQuestions(){
+        Question q1 = new Question("What is the big-O notation of: " +
+                "4n^2 + 3?", "O(n^2)", "O(n)", "O(logn)", "O(n^2)", 1);
+        addQuestion(q1);
+        Question q2 = new Question("What is the big-O notation of: n^3 + log(^2) + 100nlog(n)",
+                "O(n^3)","O(n^2)", "O(n^6)", "O(n^3)", 1);
+        addQuestion(q2);
+        Question q3 =  new Question("What is the big-O notation of: 4n^10 + 3n^3 + 8n?",
+                "O(n^10)","O(n^14)","O(n^10)","O(n^13)",1);
+        addQuestion(q3);
+        Question q4 = new Question("What is the big-O notation of: log(n) + 23n?",
+                "O(n)","O(n^2)", "O(1)","O(n)",1);
+        addQuestion(q4);
+        Question q5 = new Question("What type of dynamic programming approach does merge sort take?"
+                , "Divide and Conquer", "Binary Search", "Divide and Conquer", "Greedy Algorithm",1);
+        addQuestion(q5);
+
+
+        //Data Structure questions.
+        Question q6 = new Question("In memory, what data structure is used when using a recursive function"
+                , "Stack", "Queue", "Linked-List", "Stack",2);
+        addQuestion(q6);
+        Question q7 = new Question("What is the minimum # of queues need when implementing a priority queue"
+                , "2", "1", "2", "3",2);
+        addQuestion(q7);
+        Question q8 = new Question("Which data structure is non-linear?"
+                , "Trees", "Linked-List", "Trees", "Arrays",2);
+        addQuestion(q8);
+        Question q9 = new Question("All global variables are stored in _____ memory"
+                , "Heap", "Heap", "Static", "Dynamic",2);
+        addQuestion(q9);
+        Question q10 = new Question("What is the minimum # of nodes that a binary tree can have?"
+                , "Zero", "One","Zero", "Two",2);
+        addQuestion(q10);
+
+
+        //Software Design patterns
+        Question q11 =  new Question("Which of the following is the correct list of entities of MVC?"
+                , "Model,View,Controller", "Model,Viewer,Control", "Model,View,Control","Model,View,Controller",3);
+        addQuestion(q11);
+        Question q12 = new Question("In which of the following pattern, a class behavior changes based on its state?"
+                , "State","State","Null object", "Strategy",3);
+        addQuestion(q12);
+        Question q13 = new Question("Why are Patterns important?",
+                "They make captured design accessible to both novice and other experts",
+                "Capture expert design knowledge",
+                "None of the above",
+                "They make captured design accessible to both novice and other experts",3);
+        addQuestion(q13);
+        Question q14 = new Question("What is a pattern?"
+                , "All of the above", "Solves a software design problem",
+                "A model proposed for imitation", "All of the above",3);
+        addQuestion(q14);
+        Question q15 = new Question("What benefits does patterns provide?"
+                , "All of the above",
+                "Increase development efficiency", "Promoting communication","All of the above",3);
+        addQuestion(q15);
+
+    }
+
 
     // onUpdate() is invoked when you upgrade the database scheme.
     // Don’t consider it seriously for the sample app.
@@ -169,9 +249,103 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DATA_STRUCTURES_CATEGORY);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALGORITHMS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALGORITHMS_CATEGORY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTIONS);
 
         // create fresh database
         this.onCreate(db);
+    }
+
+    public void addQuestion(Question question){
+
+        Log.d("addQuestion", "inside addQuestion function");
+        SQLiteDatabase db = this.getWritableDatabase();
+        Log.d("addQuestion", "finished getting writable db");
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_QUESTION, question.getQUESTION());
+        values.put(KEY_ANSWER,question.getANSWER());
+        values.put(KEY_FIRSTOPTION,question.getFIRSTOPTION());
+        values.put(KEY_SECONDOPTION, question.getSECONDOPTION());
+        values.put(KEY_THIRDOPTION,question.getTHIRDOPTION());
+        values.put(KEY_QCATEGORY,question.getQCATEGORY());
+
+
+        //db.insert(TABLE_QUESTIONS,null,values);
+        db.insertOrThrow(TABLE_QUESTIONS,null,values);
+        db.close();
+        Log.d("addQuestion", "after addQuestion function");
+    }
+
+    public List<Question> getAlgorithmQuestions(){
+        List<Question> questionList = new ArrayList<Question>();
+        String selectQuery = "SELECT * FROM " + TABLE_QUESTIONS + " WHERE " + KEY_QCATEGORY + " = 1 LIMIT 5";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        if(cursor.moveToFirst()){
+            do{
+                Question question = new Question();
+                question.setQID(cursor.getInt(0));
+                question.setQUESTION(cursor.getString(1));
+                question.setANSWER(cursor.getString(2));
+                question.setFIRSTOPTION(cursor.getString(3));
+                question.setSECONDOPTION(cursor.getString(4));
+                question.setTHIRDOPTION(cursor.getString(5));
+                question.setCATEGORY(cursor.getInt(6));
+
+                questionList.add(question);
+            }while (cursor.moveToNext());
+        }
+
+        return questionList;
+    }
+
+    public List <Question> getDatabaseQuestions(){
+        List<Question> databaseList = new ArrayList<Question>();
+        String selectQuery = "SELECT * FROM " + TABLE_QUESTIONS + " WHERE " + KEY_QCATEGORY + " = 2 LIMIT 5";
+        SQLiteDatabase db  = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        if(cursor.moveToFirst()){
+            do{
+                Question question = new Question();
+                question.setQID(cursor.getInt(0));
+                question.setQUESTION(cursor.getString(1));
+                question.setANSWER(cursor.getString(2));
+                question.setFIRSTOPTION(cursor.getString(3));
+                question.setSECONDOPTION(cursor.getString(4));
+                question.setTHIRDOPTION(cursor.getString(5));
+                question.setCATEGORY(cursor.getInt(6));
+
+                databaseList.add(question);
+            }while (cursor.moveToNext());
+        }
+        return databaseList;
+
+    }
+
+    public List<Question> getSoftwareDesignQuestions(){
+        List<Question> softwareList = new ArrayList<Question>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_QUESTIONS + " WHERE " + KEY_QCATEGORY + " = 3 LIMIT 5";
+        SQLiteDatabase db  = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        if(cursor.moveToFirst()){
+            do{
+                Question question = new Question();
+                question.setQID(cursor.getInt(0));
+                question.setQUESTION(cursor.getString(1));
+                question.setANSWER(cursor.getString(2));
+                question.setFIRSTOPTION(cursor.getString(3));
+                question.setSECONDOPTION(cursor.getString(4));
+                question.setTHIRDOPTION(cursor.getString(5));
+                question.setCATEGORY(cursor.getInt(6));
+
+                softwareList.add(question);
+            }while (cursor.moveToNext());
+        }
+        return softwareList;
     }
 
     private String getDateTime() {
@@ -715,6 +889,7 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
         values.put(KEY_RUNTIME, algorithm.getRuntime());
         values.put(KEY_CATEGORY_ID, algorithm.getCategoryID());
         values.put(KEY_HELPFUL_LINK, algorithm.getHelpfulLink());
+
         values.put(KEY_DATE_CREATED, getDateTime());
         values.put(KEY_DATE_UPDATED, getDateTime());
 

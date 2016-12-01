@@ -5,6 +5,7 @@ package edu.csumb.moli9479.applicationpocketcs;
  */
 
 public class User {
+
     private int ID;
     private String firstName;
     private String lastName;

@@ -6,6 +6,9 @@ apply plugin: 'android-apt'
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
+    repositories {
+        mavenCentral()
+    }
     defaultConfig {
         applicationId "edu.csumb.moli9479.applicationpocketcs"
         minSdkVersion 15
@@ -53,4 +56,8 @@ dependencies {
     //ButterKnife
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+
+
+    compile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    compile 'com.google.code.gson:gson:2.3.1'
 }

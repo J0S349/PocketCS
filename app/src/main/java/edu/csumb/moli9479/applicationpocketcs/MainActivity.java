@@ -2,6 +2,9 @@ package edu.csumb.moli9479.applicationpocketcs;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,37 +15,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.facebook.AccessToken;
 import com.facebook.FacebookRequestError;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static edu.csumb.moli9479.applicationpocketcs.R.attr.icon;
-import static edu.csumb.moli9479.applicationpocketcs.R.attr.preserveIconSpacing;
 
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int ALGORITHMS_INFO = 0;
     private static final int DATASTRUCTURES_INFO = 1;
     private static final int SOFTWAREDESIGN_INFO = 2;
-
+    private static final int ALGORITHMS_QUIZ = 1;
+    private static final int DATASTRUCTURE_QUIZ = 2;
+    private static final int SOFTWAREDESIGN_QUIZ = 3;
     private ActionBarDrawerToggle toggle;
-    public static User currentUser;
-    private String TAG;
+    private fbUser user;
 
     @BindView(R.id.AlgorithmsButton) Button algorithms;
     @BindView(R.id.DataStructuresButton) Button dataStructures;
@@ -56,12 +57,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         setNavigationDrawer();
-        setUserProfilePhoto_Name_ID();
-
     }
 
     public void setNavigationDrawer(){
@@ -73,18 +72,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void setUserProfilePhoto_Name_ID(){
-        Profile profile = Profile.getCurrentProfile();
-
-        profilePicture.setProfileId(profile.getId());
-        nameView.setText(profile.getName());
-        idView.setText(profile.getId());
-    }
-
     @OnClick(R.id.AlgorithmsButton)
     public void onAlgorithmsButtonClick(){
         initializeCategoryScreen(ALGORITHMS_INFO);
-        //Toast.makeText(this, "Clicked on algo button", Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.DataStructuresButton)
@@ -105,35 +95,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(i);
     }
 
-   
     private void goToLoginScreen() {
+        LoginManager.getInstance().logOut();
         Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-
-
-    public void logoutUser(DialogInterface.OnClickListener view){
-
-        GraphRequest delPermRequest = new GraphRequest(AccessToken.getCurrentAccessToken(), "/{user-id}/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
-            @Override
-            public void onCompleted(GraphResponse graphResponse) {
-                if(graphResponse!=null){
-                    FacebookRequestError error =graphResponse.getError();
-                    if(error!=null){
-                        Log.e(TAG, error.toString());
-                    }else {
-                        finish();
-                    }
-                }
-            }
-        });
-        Log.d(TAG,"Executing revoke permissions with graph path" + delPermRequest.getGraphPath());
-        delPermRequest.executeAsync();
-        LoginManager.getInstance().logOut();
-        goToLoginScreen();
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -141,6 +107,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void createQuiz(int info) {
+        Bundle extraInfo = new Bundle();
+        Intent i = new Intent(this, quizTemplate.class);
+        extraInfo.putInt("quizType", info);
+        i.putExtras(extraInfo);
+        startActivity(i);
     }
 
     @Override
@@ -157,16 +131,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(profileIntent);
                 break;
 
-            case R.id.Quizzes_menu_item:
-                Toast.makeText(MainActivity.this, "Clicked on Quizzes", Toast.LENGTH_LONG).show();
+            case R.id.algorithms_quiz_menu_item:
+                createQuiz(ALGORITHMS_QUIZ);
                 break;
 
+            case R.id.datastructures_quiz_menu_item:
+                createQuiz(DATASTRUCTURE_QUIZ);
+                break;
+
+            case R.id.softwareDesign_quiz_menu_item:
+                createQuiz(SOFTWAREDESIGN_QUIZ);
+
             case R.id.Community_menu_item:
-                Toast.makeText(MainActivity.this, "Clicked on Community", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.About_menu_item:
-                Toast.makeText(MainActivity.this, "Clicked on About", Toast.LENGTH_LONG).show();
                 Intent aboutIntent = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(aboutIntent);
                 break;
@@ -180,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                logoutUser(this);
+                                goToLoginScreen();
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -194,19 +173,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         //Code below checks if the drawer is open,
-            //if it is open and something is clicked, it will close.
+        //if it is open and something is clicked, it will close.
         DrawerLayout dl = (DrawerLayout) findViewById(R.id.drawerLayout);
         if(dl.isDrawerOpen(GravityCompat.START)){
             dl.closeDrawer(GravityCompat.START);
         }
-
         return false;
     }
 
     @Override
     public void onResume(){
         super.onResume();
-
         Profile profile = Profile.getCurrentProfile();
         if(profile == null){
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
