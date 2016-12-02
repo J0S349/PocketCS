@@ -20,20 +20,20 @@ import static org.junit.Assert.assertThat;
 @RunWith(MockitoJUnitRunner.class)
 public class DropBoxCreationTest extends AppCompatActivity{
     @Test
-    public void createAlgorithmDropBox() throws Exception {
+    public void createAlgorithmButton() throws Exception {
         LinearLayout spinnerLayout = new LinearLayout(this);
         String [] algorithmCategories = {"Sorting", "Searching", "String Matching", "Graph Problems", "Optimization"};
         CategoryScreen categoryScreen = new CategoryScreen();
-        boolean dropBoxIsCreated = categoryScreen.createDefaultAlgorithmDropBox(algorithmCategories, spinnerLayout);
+        boolean dropBoxIsCreated = categoryScreen.createDefaultAlgorithmButton(algorithmCategories, spinnerLayout);
         assertThat(dropBoxIsCreated, is(true));
     }
 
-    @Test
+    /*@Test
     public void createSpinner() throws Exception {
         LinearLayout spinnerLayout = new LinearLayout(this);
         String [] algorithmCategories = {"Sorting", "Searching", "String Matching", "Graph Problems", "Optimization"};
         CategoryScreen categoryScreen = new CategoryScreen();
-        boolean dropBoxIsCreated = categoryScreen.displayDropBox(spinnerLayout, algorithmCategories);
+        boolean dropBoxIsCreated = categoryScreen.displayButton(spinnerLayout, algorithmCategories);
         assertThat(dropBoxIsCreated, is(true));
-    }
+    }*/
 }
