@@ -53,7 +53,7 @@ public class AlgorithmsTest {
     public void testCategoryID() throws Exception {
         Algorithms a = new Algorithms();
         a.setCategoryID(1);
-        assertEquals(a.getCategoryID(), 0);
+        assertEquals(a.getCategoryID(), 1);
     }
 
     @Test
