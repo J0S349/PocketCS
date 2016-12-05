@@ -11,6 +11,16 @@ public class Algorithms extends CSTopic {
         super();
     }
 
+
+    public Algorithms(String name, String description, String runtime, String pseudocode,String helpfulLink, int categoryID){
+        setName(name);
+        setDescription(description);
+        setRuntime(runtime);
+        setImage(pseudocode);
+        setHelpfulLink(helpfulLink);
+        setCategoryID(categoryID);
+    }
+
     public String getRuntime() {
         return runtime;
     }
