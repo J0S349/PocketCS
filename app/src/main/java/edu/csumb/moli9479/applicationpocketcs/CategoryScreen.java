@@ -1,5 +1,6 @@
 package edu.csumb.moli9479.applicationpocketcs;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,7 @@ public class CategoryScreen extends AppCompatActivity implements OnClickListener
 
     private String [] categories;
     private boolean [] isClickedTwice;
+    private int categoryID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,9 @@ public class CategoryScreen extends AppCompatActivity implements OnClickListener
         isClickedTwice[3] = false;
         isClickedTwice[4] = false;
 
-        switch (getIntent().getExtras().getInt("categoryScreen")) {
+        categoryID = getIntent().getExtras().getInt("categoryScreen");
+
+        switch (categoryID) {
             case 0:
                 String [] algorithmCategories = {"Sorting", "Searching", "String Matching", "Graph Problems", "Optimization"};
                 categories = algorithmCategories;
@@ -608,5 +612,4 @@ public class CategoryScreen extends AppCompatActivity implements OnClickListener
                 break;
         }
     }
-
 }
