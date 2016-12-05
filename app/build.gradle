@@ -1,7 +1,23 @@
 apply plugin: 'com.android.application'
-apply plugin: 'jacoco'
 apply plugin: 'maven'
 apply plugin: 'android-apt'
+
+apply plugin: 'jacoco'
+task jacocoReport(type: JacocoReport) {
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination "$buildDir/reports/jacocoHtml"
+    }
+    sourceDirectories = files('src/main/java')
+    executionData = files("$buildDir/jacoco/testDebugUnitTest.exec")
+    classDirectories =
+            fileTree(dir: './build/intermediates/classes/debug/',
+                    excludes: [
+                            '**/R.class',
+                            '**/R$*.class'
+                    ])
+}
 
 
 
