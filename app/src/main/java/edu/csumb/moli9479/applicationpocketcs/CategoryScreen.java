@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -71,8 +72,10 @@ public class CategoryScreen extends AppCompatActivity implements OnClickListener
     public boolean createDefaultAlgorithmButton(String []categories, LinearLayout spinnerLayout) {
         for (int i = 0; i < categories.length; i++) {
             if(!displayButton(spinnerLayout, categories[i], i)) {
+                Log.d("Category Screen", "Button " + i + " not created");
                 return false;
             }
+            Log.d("Category Screen", "Button " + i + " created");
         }
         return true;
     }
