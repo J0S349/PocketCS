@@ -1,22 +1,35 @@
 package edu.csumb.moli9479.applicationpocketcs;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.koushikdutta.ion.Ion;
 import java.util.HashMap;
 
-public class CategoryDataDisplay extends AppCompatActivity {
+public class CategoryDataDisplay extends AppCompatActivity implements OnClickListener{
+
+    private int categoryID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_data_display);
+
+        Button previous = (Button)findViewById(R.id.previousActivity);
+        Button mainMenu = (Button)findViewById(R.id.mainMenu);
+
+        previous.setOnClickListener(this);
+        mainMenu.setOnClickListener(this);
 
         OurSQLiteDatabase database = OurSQLiteDatabase.getDatabase(this);
 
@@ -27,6 +40,8 @@ public class CategoryDataDisplay extends AppCompatActivity {
                 System.out.println(getIntent().getExtras().getString("categoryDescription"));
                 System.out.println(getIntent().getExtras().getString("categoryImage"));
                 System.out.println(getIntent().getExtras().getString("categoryLink"));
+
+                categoryID = getIntent().getExtras().getInt("categoryToAdd");
 
                 switch (getIntent().getExtras().getInt("categoryToAdd")) {
                     case 0:
@@ -76,6 +91,7 @@ public class CategoryDataDisplay extends AppCompatActivity {
                         break;
                 }
             } else {
+                categoryID = getIntent().getExtras().getInt("categoryID");
                 switch (getIntent().getExtras().getInt("categoryID")) {
                     case 0:
                         HashMap<Integer, Algorithms> algorithms = database.getAllAlgorithms();
@@ -110,6 +126,7 @@ public class CategoryDataDisplay extends AppCompatActivity {
             }
         }catch (Exception e) {
             System.out.println("Addition cancelled");
+            categoryID = getIntent().getExtras().getInt("categoryID");
         }
         //http://bit.ly/2fXkXLa
         //algorithms1.setHelpfulLink("http://www.cc.gatech.edu/classes/cs3158_98_fall/quicksort.html");
@@ -205,5 +222,24 @@ public class CategoryDataDisplay extends AppCompatActivity {
         links.setLinksClickable(true);
         links.setMovementMethod(LinkMovementMethod.getInstance());
         links.setHighlightColor(Color.BLUE);
+    }
+
+    public void onClick(View v) {
+        Intent intent;
+        Bundle extraInfo = new Bundle();
+        switch (v.getId()) {
+            case R.id.previousActivity:
+                intent = new Intent(this, CategoryScreen.class);
+                extraInfo.putInt("categoryScreen", categoryID);
+                intent.putExtras(extraInfo);
+                startActivity(intent);
+                break;
+            case R.id.mainMenu:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

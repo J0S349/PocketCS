@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@color/background_blue"
+                android:background="@color/colorPrimary"
                 android:orientation="vertical"
                 android:padding="10dp">
                 <TextView
@@ -34,19 +34,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="#006633"
-                    android:textSize="10dp"
                     android:background="#f0f0f0"
                     android:typeface="monospace"
-                    android:textStyle="bold"
-                    android:padding="5dp" />
+                    android:padding="5dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@color/background_blue"
+                android:background="@color/colorPrimary"
                 android:orientation="vertical"
                 android:padding="10dp">
                 <TextView
@@ -65,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@color/background_blue"
+                android:background="@color/colorPrimary"
                 android:orientation="vertical"
                 android:padding="10dp">
                 <TextView
@@ -81,6 +79,8 @@
                 android:id="@+id/costs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary"
                 android:orientation="vertical">
 
             </LinearLayout>
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@color/background_blue"
+                android:background="@color/colorPrimary"
                 android:orientation="vertical"
                 android:padding="10dp">
                 <ImageView
@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@color/background_blue"
+                android:background="@color/colorPrimary"
                 android:orientation="vertical"
                 android:padding="10dp">
                 <TextView
@@ -117,6 +117,31 @@
                     android:padding="5dp"
                     android:scaleX="1"
                     android:scaleY="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:text="Previous"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/previousActivity"
+                    android:layout_weight="1"
+                    android:paddingTop="5dp"
+                    android:paddingRight="5dp" />
+
+                <Button
+                    android:text="Main Menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mainMenu"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp" />
             </LinearLayout>
         </LinearLayout>
 
