@@ -74,10 +74,15 @@ i
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity android:name=".LoginActivity" />
+
         <activity
             android:name=".CategoryDataDisplay"
             android:label="@string/title_activity_category_data_display" />
+
+
         <activity
             android:name=".AboutActivity"
             android:label="@string/About"
@@ -94,6 +99,7 @@ i
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
         <activity android:name=".quizTemplate" />
         <activity android:name=".quizResults"></activity>
         <activity android:name=".CategoryInputScreen" />
