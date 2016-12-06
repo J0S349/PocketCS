@@ -127,6 +127,7 @@ public class OurSQLiteDatabase extends SQLiteOpenHelper {
                 KEY_HELPFUL_LINK + " TEXT, " +
                 KEY_DATE_CREATED + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                 KEY_DATE_UPDATED + " DATETIME DEFAULT CURRENT_TIMESTAMP )";
+        Log.d("SQLite db", CREATE_DATA_STRUCTURES_TABLE);
 
         // execute an SQL statement to create the table
         db.execSQL(CREATE_DATA_STRUCTURES_TABLE);

@@ -11,6 +11,15 @@ public class DataStructures extends CSTopic{
         super();
     }
 
+    public DataStructures(String name, String description, String runtime, String pseudocode,String helpfulLink, int categoryID){
+        setName(name);
+        setDescription(description);
+        setRuntime(runtime);
+        setImage(pseudocode);
+        setHelpfulLink(helpfulLink);
+        setCategoryID(categoryID);
+    }
+
     public String getRuntime() {
         return runtime;
     }

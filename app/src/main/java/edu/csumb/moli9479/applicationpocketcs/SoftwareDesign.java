@@ -12,6 +12,18 @@ public class SoftwareDesign extends CSTopic{
         super();
     }
 
+    public SoftwareDesign(String name, String description, String image,String benefits,String costs,String helpfulLink, int categoryID){
+        setName(name);
+        setDescription(description);
+        setImage(image);
+        setBenefits(benefits);
+        setCosts(costs);
+        setHelpfulLink(helpfulLink);
+        setCategoryID(categoryID);
+    }
+
+
+
     public String getBenefits() {
         return benefits;
     }
