@@ -5,25 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!--
-    This declares that this app uses the instrumentation test runner targeting
-    the package of com.android.mail.  To run the tests use the command:
-    "adb shell am instrument -w com.android.mail.emailtests/android.support.test.runner.AndroidJUnitRunner"
-i
-    -->
-    <!--<instrumentation
-        android:name="android.support.test.runner.AndroidJUnitRunner"
-        android:targetPackage="com.example.android.testing." /> -->
 
-    <!--
-    This declares that this app uses the instrumentation test runner targeting
-    the package of com.android.mail.  To run the tests use the command:
-    "adb shell am instrument -w com.android.mail.emailtests/android.support.test.runner.AndroidJUnitRunner"
-i
-    -->
-    <!--<instrumentation
-        android:name="android.support.test.runner.AndroidJUnitRunner"/>
-        android:targetPackage="com.example.android.testing."-->
 
     <application
         android:name=".PocketCSApp"
