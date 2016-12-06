@@ -21,27 +21,19 @@ checkout:
         - git submodule update
 
 test:
-    post:
-        - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-        - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
     override:
-        #- (./gradlew assemble -PdisablePreDex):
-        #timeout: 360
-        #- cp -r ${HOME}/${CIRCLE_PROJECT_REPONAME}/app/build/outputs/apk/ $CIRCLE_ARTIFACTS
         - emulator -avd circleci-android22 -no-audio -no-window:
             background: true
             parallel: true
-        # wait for it to have booted
         - circle-android wait-for-boot
-        # run tests against the emulator.
-        #- ./gradlew testDebug
-        #- ./gradlew connectedAndroidTest
         - ./gradlew build test jacocoTestReport
-
-        # copy the build outputs to artifacts
-        #- cp -r PocketCS/build/outputs $CIRCLE_ARTIFACTS
-        # copy the test results to the test results directory.
-        #- cp -r PocketCS/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
         - cp ./*/build/outputs/apk/*.apk $CIRCLE_ARTIFACTS/
         - cp ./*/build/test-results/freeDebug/*.xml $CIRCLE_TEST_REPORTS/
         - cd ./*/build/;bash <(curl -s https://codecov.io/bash)
+        - ./gradlew testDebugUnitTest
+        - ./gradlew cAT
+    post:
+        - mkdir -v $CIRCLE_TEST_REPORTS/reports
+        - cp -v ./*/build/test-results/debug/*.xml ./*/build/outputs/androidTest-results/connected/*.xml $CIRCLE_TEST_REPORTS/reports
+        - ./gradlew jacocoReport
+        - bash <(curl -s https://codecov.io/bash)
