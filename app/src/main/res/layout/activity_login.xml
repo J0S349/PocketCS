@@ -11,6 +11,60 @@
     android:background="#9E9E9E">
 
 
+
+    <LinearLayout
+        android:id="@+id/app_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_below="@+id/login_button"
+        >
+        <TextView
+            android:text="PocketCS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="82dp"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/appNameHeader"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+            android:textAlignment="center"
+            android:textColor="@color/com_facebook_button_send_background_color_pressed"
+            android:textStyle="normal|bold"
+            android:fontFamily="cursive"
+            android:textSize="72sp"
+            android:textAllCaps="false" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:text="Log in"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
+            android:background="@drawable/softwaredesignstyle"
+            />
+    </LinearLayout>
+
+
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="match_parent"
@@ -21,6 +75,6 @@
         android:paddingBottom="12dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
+        android:layout_alignParentEnd="true"
+        />
 </RelativeLayout>

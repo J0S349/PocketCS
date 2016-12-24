@@ -1,9 +1,11 @@
 package edu.csumb.moli9479.applicationpocketcs;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.facebook.AccessToken;
@@ -23,7 +25,7 @@ import com.facebook.login.widget.ProfilePictureView;
 
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity{
+public class LoginActivity extends Activity {
 
     //Creating variable references to the XML button and CallbackManager.
     private CallbackManager callbackManager;
@@ -83,6 +85,8 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(getApplicationContext(), R.string.error_login, Toast.LENGTH_LONG).show();
+                Log.d("Login Error", error.toString());
+                System.out.print("Error" + error.toString());
             }
         });
     }

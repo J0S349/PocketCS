@@ -41,6 +41,5 @@ captures/
 
 
 .DS_Store
-
-.arcconfig
+.idea/*
 

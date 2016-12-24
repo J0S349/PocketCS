@@ -9,6 +9,7 @@ import java.net.URLDecoder;
 
 import android.app.Activity;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.google.gson.JsonParser;
@@ -36,10 +37,13 @@ public class SplashScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE); //removed title from Splash Screen
         setContentView(R.layout.activity_splash_screen);
 
         SharedPreferences settings = getSharedPreferences("SetData",0);
         boolean firstStart = settings.getBoolean("firstStart",true);
+
+
 
         if(firstStart){
             setData();
