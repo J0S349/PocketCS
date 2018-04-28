@@ -18,13 +18,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/pocketCSView"
-            android:layout_width="wrap_content"
-            android:layout_height="123dp"
-            android:src="@drawable/transparentpocketcslogo"
-            android:layout_gravity="center"/>
-
         <LinearLayout
             android:id="@+id/spinnerLayout"
             android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package edu.csumb.moli9479.applicationpocketcs;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -46,16 +47,19 @@ public class CategoryScreen extends AppCompatActivity implements OnClickListener
 
         switch (categoryID) {
             case 0:
+                setTitle("Algorithms");
                 String [] algorithmCategories = {"Sorting", "Searching", "String Matching", "Graph Problems", "Optimization"};
                 categories = algorithmCategories;
                 dropBoxIsCreated = createDefaultAlgorithmButton(algorithmCategories, spinnerLayout);
                 break;
             case 1:
+                setTitle("Data Structures");
                 String [] dataStructuresCategories = {"LinkedLists", "Trees", "Sets", "Hashing", "Arrays"};
                 categories = dataStructuresCategories;
                 dropBoxIsCreated = createDefaultDataStructureButton(dataStructuresCategories, spinnerLayout);
                 break;
             case 2:
+                setTitle("Software Design Patterns");
                 String [] softwareDesignPatternsCategories = {"Algorithm Strategy Patterns", "Computational Design Patterns", "Execution Patterns", "Implementation Strategy Patterns", "Structural Design Patterns"};
                 categories = softwareDesignPatternsCategories;
                 dropBoxIsCreated = createDefaultSoftwareDesignPatternButton(softwareDesignPatternsCategories, spinnerLayout);
@@ -113,6 +117,7 @@ public class CategoryScreen extends AppCompatActivity implements OnClickListener
         return true;
     }
 
+    @SuppressLint("ResourceType")
     public void onClick(View v) {
         final Bundle extraInfo = new Bundle();
         final Intent intent = new Intent(this, CategoryInputScreen.class);
