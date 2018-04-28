@@ -8,6 +8,7 @@ import android.os.Bundle;
 import java.net.URLDecoder;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
@@ -61,7 +62,7 @@ public class SplashScreen extends Activity {
            setSoftwareDesign();
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("firstStart",false);
-            editor.commit();
+            editor.apply();
         }
 
         new Handler().postDelayed(new Runnable() {
@@ -95,12 +96,12 @@ public class SplashScreen extends Activity {
 
         client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 e.printStackTrace();
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String responseData = response.body().string();
                 responseData = URLDecoder.decode(responseData, "UTF-8");
 
@@ -141,7 +142,7 @@ public class SplashScreen extends Activity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String responseData = response.body().string();
                 responseData = URLDecoder.decode(responseData, "UTF-8");
 
@@ -189,7 +190,7 @@ public class SplashScreen extends Activity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String responseData = response.body().string();
                 responseData = URLDecoder.decode(responseData, "UTF-8");
 
